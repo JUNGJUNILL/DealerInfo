@@ -1,0 +1,1 @@
+export const backUrl ='http://captainryan.gonetis.com:3095/api';
