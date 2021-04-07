@@ -3,6 +3,7 @@ import React from 'react';
 import Head from 'next/head';
 import 'antd/dist/antd.css';
 import  '../CSS/antdMobile.css';
+import AppLayout from '../components/AppLayout'; 
 import wrapper from '../store/configureStore';
 
 
@@ -10,10 +11,11 @@ const Personal_Project02 = ({ Component, pageProps }) => (
     <div>
       <Head>
         <meta charSet="utf-8" />
-        <title>Personal_Project02</title>
+        <title>우리동네 식자재 유통사</title>
       </Head>
-
+      <AppLayout>
          <Component {...pageProps} />
+      </AppLayout>
     </div>
   );
 

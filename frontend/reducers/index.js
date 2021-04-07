@@ -1,9 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from 'redux'; // 여러 리듀서들을 하나로 합쳐준다.
-import mainPosts_1001 from './mainPosts_1001' 
-import testReducer from './testReducer' 
-import emp from './emp'; 
-import auth from './auth';
+import dealerInfoListReducer from './dealerInfoListReducer' 
 
 // const rootReducer = combineReducers({
 //     count, // 여기에 다른 리듀서들을 더 적으면 된다!
@@ -25,10 +22,8 @@ const rootReducer = (state, action) => {
         
       default: {
         const combinedReducer = combineReducers({    
-            testReducer,
-            mainPosts_1001,
-            emp,
-            auth
+            dealerInfoListReducer,
+
         });
         return combinedReducer(state, action);
       }

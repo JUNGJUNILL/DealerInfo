@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan'); 
 const cookieParser = require('cookie-parser'); 
 const path = require('path'); 
+const dealerInfoAPIRouter = require('./routes/dealerInfoRouter'); 
 
 const dotenv = require('dotenv');
 const passportConfig = require('./passport'); 
@@ -17,9 +18,7 @@ app.use(cors({
     //--프론트와 백엔드간에 쿠키 주고 받기 위함
 }));
 
-const empAPIRouter = require('./routes/emp'); 
-const authAPIRouter = require('./routes/auth'); 
-const mainPosts_1001APIRouter = require('./routes/mainPosts_1001'); 
+
 
 app.use(morgan('dev')); 
 
@@ -49,9 +48,7 @@ app.use(cookieParser()); //req.cookies 사용가능,
 // app.use(passport.session()); 
 
 
-app.use('/api/emp',empAPIRouter); 
-app.use('/api/auth',authAPIRouter); 
-app.use('/api/mainPosts_1001',mainPosts_1001APIRouter); 
+app.use('/api/dealerInfo',dealerInfoAPIRouter); 
 
 
 //에러

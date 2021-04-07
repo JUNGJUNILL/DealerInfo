@@ -8,25 +8,25 @@ import {localDataList}from './localData';
 import axios from 'axios';
 
 import 
-    {TEST_REQUEST02,} 
-from '../reducers/testReducer'; 
+    {DEALERINFO_REQUEST,} 
+from '../reducers/dealerInfoListReducer'; 
 
 import DealerinfoModalComponent from '../components/DealerinfoModalComponent'
 
 
 const DealerInfo = ({clientIp,clientRegion}) =>{
 
-  const dispatch         = useDispatch(); 
-  const {testArray02}      = useSelector((state)=>state.testReducer); 
+  const dispatch              = useDispatch(); 
+  const {dealerInfoList}      = useSelector((state)=>state.dealerInfoListReducer); 
 
   useEffect(()=>{
 
     dispatch({
-      type:TEST_REQUEST02, 
+      type:DEALERINFO_REQUEST, 
       data:{clientIp:clientIp,init:'initload'},
     });
     
-  },[clientIp]); 
+  },[]); 
 
 
 
@@ -62,7 +62,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
       setSubLocal([...changeSubLocalList]); 
       
       dispatch({
-        type:TEST_REQUEST02, 
+        type:DEALERINFO_REQUEST, 
         data:{clientIp:value,},
     });
 
@@ -82,7 +82,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
    const onClickDetailInfo =(i)=>() =>{
 
-    setDealerInfo({...testArray02[i]});
+    setDealerInfo({...dealerInfoList[i]});
     setBooleanValue((value)=>!value);; 
 
   }
@@ -132,7 +132,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
         {/*데이터 리스트*/}
          <div className='divTable' style={{marginTop:'3%'}}>
                
-            {testArray02 && testArray02.map((v,i)=>(
+            {dealerInfoList && dealerInfoList.map((v,i)=>(
                 <div className='divTableRow' key={i}>
                     <div className='divTableCell'><div className="divImageCell"><img src={i<=2?`http://captainryan.gonetis.com:3095/${i===0?'1':i===1?'2':'3'}.jpg`:'http://captainryan.gonetis.com:3095/Vegetable.gif'}/></div></div>
                     
@@ -157,25 +157,6 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
             ))}
             </div>
       
-
-         {/* 
-         {testArray02 && testArray02.map((v,i)=>(
-            <Card>
-            <Card.Meta avatar={<Avatar src='https://media.istockphoto.com/vectors/gold-medal-icon-for-first-place-with-red-ribbons-for-the-winner-vector-id1160210757'/>}
-                       title={v.infoName}
-                     
-            />
-            &nbsp;
-            <pre>
-              업태 :{v.item}
-            &nbsp;
-            <b>업종 : {v.status}</b>
-            </pre>
-         
-            </Card>        
-              
-          ))}
-        */}
         </div>
     )
 
@@ -184,14 +165,19 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 
   try{
-    const clientIp =context.req.headers['x-real-ip'] || context.req.connection.remoteAddress || null;
-    const apiResult =await axios.get(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`);
-    const clientRegion = apiResult.data.region || 'Seoul' || null; 
-  return {
-      props: {clientIp,clientRegion}, // will be passed to the page component as props
-    } 
+
+      const clientIp =context.req.headers['x-real-ip'] || context.req.connection.remoteAddress;
+      const apiResult =await axios.get(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`);
+      const clientRegion = apiResult.data.region || 'Seoul' || null; 
+      console.log('clientRegion=>', clientRegion); 
+      return {
+        props: {clientIp,clientRegion}, // will be passed to the page component as props
+      } 
+  
   }catch(e){
+
     console.error(e); 
+
   }
 
   });

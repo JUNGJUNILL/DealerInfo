@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Col,Row } from 'antd';
 
 const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
 
@@ -40,7 +40,9 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
     
 
     return (
-       <div>          
+       <div>   
+       <Row>
+            <Col xs={24} md={12}></Col>
             <Modal
                 title={infoName}
                 centered
@@ -49,7 +51,8 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
                 onOk={changeVisibleValue}
                 cancelText={'닫기'}
                 okText={'확인'}
-                width={'95%'}
+              
+             
                 >
 
                 <p style={{textAlign:'center'}}><font style={{fontFamily:'Hanna',fontSize:'4vh'}}>오늘(2021.4.5) 거래량</font></p>
@@ -87,6 +90,8 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
                 </div>
            
             </Modal>
+            <Col /> 
+            </Row>
        </div>
     )
 
