@@ -23,7 +23,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
     dispatch({
       type:DEALERINFO_REQUEST, 
-      data:{clientIp:clientIp,init:'initload'},
+      data:{clientIp:clientIp,init:'initLoad'},
     });
     
   },[]); 
@@ -63,7 +63,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
       
       dispatch({
         type:DEALERINFO_REQUEST, 
-        data:{clientIp:value,},
+        data:{clientIp:value},
     });
 
     }catch(e){
@@ -169,7 +169,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
       const clientIp =context.req.headers['x-real-ip'] || context.req.connection.remoteAddress;
       const apiResult =await axios.get(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`);
       const clientRegion = apiResult.data.region || 'Seoul' || null; 
-      console.log('clientRegion=>', clientRegion); 
+      
       return {
         props: {clientIp,clientRegion}, // will be passed to the page component as props
       } 
