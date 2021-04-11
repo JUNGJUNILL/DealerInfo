@@ -15,12 +15,12 @@ router.post('/select', async (req,res,next)=>{
      //실제 데이터
      let dealerInfoList;
 
+
     if(init){ //첫 로드시 
 
       const request = await fetch(`https://ipinfo.io/${clientIp}?token=${process.env.IPTOKEN}`)
       const json = await request.json(); 
       
-
       dealerInfoList =  data.dealerInfoList().filter((v,i,array)=>{
         if(v.region === json.region){
           return array;
