@@ -4,7 +4,7 @@ import { Select ,Button} from 'antd';
 const { Option } = Select;
 
 import wrapper from '../store/configureStore';
-import {localDataList}from './localData'; 
+import {localDataList}from '../API/localData'; 
 import axios from 'axios';
 
 import 
