@@ -2,7 +2,7 @@ import { all, fork, put, takeLatest, call, throttle, delay} from 'redux-saga/eff
 const fetch =require('node-fetch');
 import axios from 'axios'
 
-import {fetchData} from './apiData';
+import {getDealerInfoAPI} from '../API/getDealerInfoAPI';
 
 import {
 
@@ -12,6 +12,7 @@ import {
 
 } from '../reducers/dealerInfoListReducer';
 
+  //백엔드 서버 사용 시 
  function dealerInfoListAPI(data){
 
     return axios.post('/dealerInfo/select',{data}); 
@@ -23,7 +24,7 @@ function* dealerInfoList(action){
     try{
         //백엔드 서버 사용 시 
         //const result =yield call(dealerInfoListAPI,action.data); 
-        const result =yield call(fetchData,action.data); 
+        const result =yield call(getDealerInfoAPI,action.data); 
        
         
         yield  put({

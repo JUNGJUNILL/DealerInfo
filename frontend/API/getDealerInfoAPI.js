@@ -1,10 +1,10 @@
 
 //https://www.youtube.com/watch?v=jQ4YD7Ip6T4 이거보고 해결 
-export const fetchData = async (actionData) =>{
+export const getDealerInfoAPI = async (actionData) =>{
 
   try{
     const {clientIp, init} = actionData;
-    console.log('clientIp====>', clientIp); 
+    
     let goUrl='https://www.hubpass.co.kr/asp/standard/DealerInfo03.jsp?region='; 
    
     if(init){
