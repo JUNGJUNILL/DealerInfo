@@ -5,6 +5,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   
   module.exports = withBundleAnalyzer({
     compress: true, //배포할 파일들을 gzip으로 압축해준는 장치 
+    future: {
+      webpack5: true,
+    },
     webpack(config, { webpack }) {
       const prod = process.env.NODE_ENV === 'production';
       return {
