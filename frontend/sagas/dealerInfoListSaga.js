@@ -24,15 +24,16 @@ function* dealerInfoList(action){
     try{
         //백엔드 서버 사용 시 
         //const result =yield call(dealerInfoListAPI,action.data); 
-        const result =yield call(getDealerInfoAPI,action.data); 
-       
-        
+        const {result,region} =yield call(getDealerInfoAPI,action.data); 
+        const {changeLocalValue} = yield action.data;
         yield  put({
               type:DEALERINFO_SUCCESS, 
 
               //백엔드 서버 사용 시 
               //data:result.data,
               data:result,
+              region:region,
+              changeLocalValue:changeLocalValue,
           });
   
       }catch(e){

@@ -4,6 +4,11 @@ import produce from '../util/produce';
 export const  initialState = {
     dealerInfoList   : [],
     clientIp      : '',
+    reginValue    :'', 
+    btnLoading    :false,
+    PerDataLength :0,
+    dealerInfoListError:null,
+
 }
 
 
@@ -22,18 +27,27 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
 
 //--------------------------------------------------------------------
         case DEALERINFO_REQUEST : {
+            draft.btnLoading=true; 
             break;
         }
         case DEALERINFO_SUCCESS : {
-            draft.dealerInfoList.length=0; 
-            action.data.forEach((v)=>{
-                draft.dealerInfoList.push(v); 
-            }); 
+            draft.btnLoading=false; 
+            draft.reginValue=action.region; 
+    
+            //지역 정보를 바꿨을 경우 배열 초기화
+            if(action.changeLocalValue){
+                draft.dealerInfoList.length=0; 
+            }
+            draft.PerDataLength=action.data.length;
+            draft.dealerInfoList=draft.dealerInfoList.concat(action.data); 
+
+          
 
             break;
 
         }
         case DEALERINFO_FAILURE: {
+            draft.dealerInfoListError='서버에러 관리자에게 문의하세요'; 
             break; 
         }
 //--------------------------------------------------------------------

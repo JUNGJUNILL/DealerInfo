@@ -17,13 +17,24 @@ import DealerinfoModalComponent from '../components/DealerinfoModalComponent'
 const DealerInfo = ({clientIp,clientRegion}) =>{
 
   const dispatch              = useDispatch(); 
-  const {dealerInfoList}      = useSelector((state)=>state.dealerInfoListReducer); 
+  const {dealerInfoList, 
+         btnLoading, 
+         reginValue, 
+         PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
+  const [startValue,setStartValue] = useState(0); 
+  const [endValue,  setEndValue] = useState(50);
+  const [clickCount , setClickCount] =useState(1); 
 
+  //첫 로드시 list 50개 가져오기 
   useEffect(()=>{
 
     dispatch({
       type:DEALERINFO_REQUEST, 
-      data:{clientIp:clientIp,init:'initLoad'},
+      data:{clientIp:clientIp,
+            init:'initLoad',
+            start:startValue,
+            end:endValue
+          },
     });
     
   },[]); 
@@ -50,8 +61,9 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
   //지역 분류 select 변경 시 action
   const onChangeMainLocal = (value) =>{
+
       try{
-   
+      setClickCount(1); 
       let changeSubLocalList = localDataList.filter((v,i,array)=>{
           if(v.regionName === value){
               return array;
@@ -63,7 +75,12 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
       
       dispatch({
         type:DEALERINFO_REQUEST, 
-        data:{clientIp:value},
+        data:{clientIp:value,
+              init:'',
+              start:startValue,
+              end:endValue,
+              changeLocalValue:true,
+        },
     });
 
     }catch(e){
@@ -92,6 +109,30 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
   const chageBooleanValue = () =>{
     setBooleanValue((prev)=>!prev); 
   }
+
+
+  //더 보기 버튼 클릭 
+  const onClickMore = useCallback(()=>{
+
+    setClickCount(prev=>prev+1);
+ 
+    /*
+        50~100        처음 더보기          50 ~ 50
+      
+        100~150       두 번째 더보기       100 ~ 50      
+        
+        150~200       세 번째 더보기       150 ~ 50
+    */
+    dispatch({
+      type:DEALERINFO_REQUEST, 
+      data:{clientIp:reginValue,
+            init:'',
+            start:endValue*clickCount,
+            end:endValue
+      },
+  });
+ 
+  },[clickCount,endValue,reginValue]); 
 
 
 
@@ -155,7 +196,12 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
                      <div className='divTableCell' style={{paddingRight:'0.7%',fontFamily:'jua'}}><Button type="primary" onClick={onClickDetailInfo(i)} style={{borderRadius:'8px'}}>상세정보</Button></div>
                 </div>
             ))}
+           
             </div>
+
+              
+          {PerDataLength >= endValue && <Button type="primary" onClick={onClickMore}  loading={btnLoading} block>더 보기 ▼</Button>  } 
+          
       
         </div>
     )
