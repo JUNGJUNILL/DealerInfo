@@ -34,7 +34,6 @@ const AppLayOut = ({children}) =>{
         <Row>
 
         <Col xs={24} md={6}>
-            <div>왼쪽</div>
         </Col>
 
 
@@ -50,7 +49,6 @@ const AppLayOut = ({children}) =>{
     </Col>
 
     <Col xs={24} md={6}>
-    <div>오른쪽</div>
     </Col>
 {/* 
     <div className="footerSub"></div>
