@@ -21,12 +21,17 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
         materialQtyCount,
         moneyTohangul,
         money,
-        region
+        region,
+        stockinday,
+        ceoName
     } = dealerinfo; 
 
     //원단위 콤마 정규표현식
     const pattern = /\d{1,3}(?=(\d{3})+(?!\d))/g; 
 
+    //빈칸제거 정규표현식 
+    const ceoNameEdit = ceoName.replace(/ /g,"").split(''); 
+          ceoNameEdit.splice(1,1,'*')
 
     const changeVisibleValue=()=>{
         func(true); 
@@ -55,30 +60,31 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
              
                 >
 
-                <p style={{textAlign:'center'}}><font style={{fontFamily:'Hanna',fontSize:'4vh'}}>오늘(2021.4.5) 거래량</font></p>
+                <p style={{textAlign:'center'}}><font style={{fontFamily:'Hanna',fontSize:'4vh'}}>{stockinday} 거래량</font></p>
                 <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>납품처</font></p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{storeCount} 곳</font></p>
                 <hr style={{opacity:'0.4'}}/>
 
                 
-                <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>오늘 납품된 품목</font> <Button type="primary"  style={{borderRadius:'8px'}} onClick={getMaterialList}><font style={{paddingRight:'0.7%',fontFamily:'jua'}}>상세정보</font></Button></p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{parseInt(orderCount,10)} 가지</font></p>
+                <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>납품된 품목 리스트</font> <Button type="primary"  style={{borderRadius:'8px'}} onClick={getMaterialList}><font style={{paddingRight:'0.7%',fontFamily:'jua'}}>상세정보</font></Button></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{orderCount.replace(pattern,'$&,')} 가지</font></p>
                 <hr style={{opacity:'0.4'}}/>
 
                 <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>납품된 품목 총 수량</font></p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{materialQtyCount}</font></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{materialQtyCount.replace(pattern,'$&,')}</font></p>
                 <hr style={{opacity:'0.4'}}/>
 
                 <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>매출액</font></p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{money.replace(pattern,'$&,')} 원</font></p>
+                {/*<p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{money.replace(pattern,'$&,')} 원</font></p>*/}
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>비공개</font></p>
                 <hr style={{opacity:'0.4'}}/>
 
                 <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>대표자</font></p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>정*일</font></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{ceoNameEdit.join('')}</font></p>
                 <hr style={{opacity:'0.4'}}/>
 
                 <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>연락처</font></p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{infoPhone}{handphone? ' / ' + handphone: ''}</font></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{infoPhone}{handphone? ' / ' + handphone: ''}</font></p>
                 <hr style={{opacity:'0.4'}}/>
 
                 <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>주소</font></p>
