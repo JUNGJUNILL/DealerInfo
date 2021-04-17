@@ -223,7 +223,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 
   try{
 
-      const clientIp =context.req.headers['x-real-ip'] || context.req.connection.remoteAddress;
+      const clientIp ='36.39.49.234';//context.req.headers['x-real-ip'] || context.req.connection.remoteAddress;
       const apiResult =await axios.get(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`);
       const clientRegion = apiResult.data.region || 'Seoul' || null; 
 
