@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-            {/*구글에드 센스 */}
+            {/*구글에드 센스_20210417 */}
             <script data-ad-client="ca-pub-9160341796142118" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             
             <meta name="keywords" content="웧퉝뷍,홀췅깡"></meta>
