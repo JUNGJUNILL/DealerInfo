@@ -26,6 +26,7 @@ function* dealerInfoList(action){
         //const result =yield call(dealerInfoListAPI,action.data); 
         const {result,region} =yield call(getDealerInfoAPI,action.data); 
         const {changeLocalValue} = yield action.data;
+        
         yield  put({
               type:DEALERINFO_SUCCESS, 
 

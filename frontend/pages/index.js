@@ -11,6 +11,8 @@ import
     {DEALERINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
 
+import {END} from 'redux-saga'; 
+
 import DealerinfoModalComponent from '../components/DealerinfoModalComponent'
 
 
@@ -26,18 +28,18 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
   const [clickCount , setClickCount] =useState(1); 
 
   //첫 로드시 list 50개 가져오기 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    dispatch({
-      type:DEALERINFO_REQUEST, 
-      data:{clientIp:clientIp,
-            init:'initLoad',
-            start:startValue,
-            end:endValue
-          },
-    });
+  //   dispatch({
+  //     type:DEALERINFO_REQUEST, 
+  //     data:{clientIp:clientIp,
+  //           init:'initLoad',
+  //           start:startValue,
+  //           end:endValue
+  //         },
+  //   });
     
-  },[]); 
+  // },[]); 
 
 
 
@@ -224,6 +226,28 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
       const clientIp =context.req.headers['x-real-ip'] || context.req.connection.remoteAddress;
       const apiResult =await axios.get(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`);
       const clientRegion = apiResult.data.region || 'Seoul' || null; 
+
+
+
+      context.store.dispatch({
+        type:DEALERINFO_REQUEST,
+            data:{clientIp:clientIp,
+            init:'initLoad',
+            start:0,
+            end:100
+          },
+      });
+  
+    
+      // 서버에서 saga에서 SUCCESS 되서 데이터가 완전히 다 만들어진 
+      // 상태로 화면이 그려주기 위한 장치 
+    
+      // REQUEST 해서 SUCCESS 될 때까지 기다려주기 위한 장치
+      // 이걸 빼면 그냥 REQUEST 요청만 완료된 상태가 되어버리기 때문에 데이터가 나오지 않을 것이다.
+      context.store.dispatch(END); 
+      await context.store.sagaTask.toPromise(); 
+
+
       
       return {
         props: {clientIp,clientRegion}, // will be passed to the page component as props
