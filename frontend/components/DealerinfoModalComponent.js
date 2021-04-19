@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Col,Row } from 'antd';
 
 const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
@@ -25,6 +25,45 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
         stockinday,
         ceoName
     } = dealerinfo; 
+
+    //카카오 맵 api 가져다 씀 
+    useEffect(()=>{
+        var container = document.getElementById('map');
+        var options = {
+          center: new kakao.maps.LatLng(0, 0), //default ,지도 정보가 이상할
+          level: 2
+        };
+        var map = new kakao.maps.Map(container, options);
+        var geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(address, function(result, status) {
+
+            // 정상적으로 검색이 완료됐으면 
+             if (status === kakao.maps.services.Status.OK) {
+        
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+        
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: `<div style="width:150px;text-align:center;padding:6px 0;">${infoName}</div>`
+                });
+                infowindow.open(map, marker);
+        
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            }
+        });    
+
+
+        }, [])
+
+
+
 
     //원단위 콤마 정규표현식
     const pattern = /\d{1,3}(?=(\d{3})+(?!\d))/g; 
@@ -91,8 +130,8 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{address}</font></p>
      
 
-                <div style={{width:'100%',height:'150px',border:"1px solid"}}>
-                지도 정보 준비중입니다.
+                <div>
+                <div id="map" style={{width:'100%',height:'300px'}}></div>
                 </div>
            
             </Modal>
