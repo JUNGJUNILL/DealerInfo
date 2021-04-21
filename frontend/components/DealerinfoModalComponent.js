@@ -103,6 +103,7 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
                     func={chageBooleanValue}
                     dealerCode={dealerCode}
                     infocode={infocode}
+                    infoName={infoName}
                         />
        }
        <Row>

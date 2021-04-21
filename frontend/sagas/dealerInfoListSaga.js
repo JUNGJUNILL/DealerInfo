@@ -60,7 +60,6 @@ function* dealerMaterialInfoList(action){
         
         const {result} =yield call(getDealerMaterialInfoAPI,action.data); 
        
-
         //유통사 정보를 바꿨을 경우
         const  changeDealerInfoFlag =yield  action.data.prevDealerCode !== action.data.dealerCode || 
                                             action.data.prevInfoCode   !== action.data.infoCode    ? true : false;
@@ -72,6 +71,8 @@ function* dealerMaterialInfoList(action){
               prevDealerCode :action.data.dealerCode,
               prevInfoCode : action.data.infoCode,
               changeDealerInfo : changeDealerInfoFlag,
+              onClickMaterialInfoModal : action.data.onClickMaterialInfoModal,
+
 
           });
   

@@ -17,6 +17,7 @@ export const  initialState = {
     dealerMaterialInfoListError:null,
     materialMoreBtnLoading:false,
     materialPerDataLength:0,
+    materialArrayTopMaterial:'',
 
     prevDealerCode:'',
     dealerCode:'',
@@ -79,13 +80,16 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
         case DEALERMATERIALINFO_SUCCESS: {
             draft.materialMoreBtnLoading=false; 
 
-            //유통사 정보를 바꿨을 경우 배열 초기화
-            if(action.changeDealerInfo){
+            //유통사 정보를 바꿨을 경우, 
+            //품목 상세정보를 다시 클릭 했을 경우, 배열 초기화
+            if(action.onClickMaterialInfoModal || action.changeDealerInfo){
                 draft.materialArray.length=0; 
             }
+
             draft.prevDealerCode=action.prevDealerCode;
             draft.prevInfoCode=action.prevInfoCode;
             draft.materialPerDataLength=action.data.length; 
+            draft.materialArrayTopMaterial=action.data[0].materialCode;
             draft.materialArray=draft.materialArray.concat(action.data); 
             break; 
         }

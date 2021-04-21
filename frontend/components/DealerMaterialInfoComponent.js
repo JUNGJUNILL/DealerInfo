@@ -7,7 +7,7 @@ import
 from '../reducers/dealerInfoListReducer'; 
 
 
-const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode})=>{
+const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode,infoName})=>{
 
     const dispatch              = useDispatch(); 
 
@@ -18,11 +18,12 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode})=>{
            prevDealerCode,
            prevInfoCode,
            materialMoreBtnLoading,
-           materialPerDataLength
+           materialPerDataLength,
+           materialArrayTopMaterial
           } = useSelector((state)=>state.dealerInfoListReducer); 
 
     const [startValue,setStartValue] = useState(0); 
-    const [endValue,  setEndValue] = useState(100);
+    const [endValue,  setEndValue] = useState(10);
     const [clickCount , setClickCount] =useState(1); 
 
  
@@ -34,9 +35,10 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode})=>{
                 data:{  dealerCode:dealerCode,
                         infoCode:infocode,
                         start:0,
-                        end:100,
+                        end:10,
                         prevDealerCode:prevDealerCode,
                         prevInfoCode:prevInfoCode,
+                        onClickMaterialInfoModal:getVisible
                     },
                 });
 
@@ -52,7 +54,7 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode})=>{
     const onClickMore = useCallback(()=>{
 
         setClickCount(prev=>prev+1);
-    
+        console.log('clickCount=>',clickCount); 
         /*
             100~200        처음 더보기         100 ~ 100
         
@@ -72,7 +74,7 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode})=>{
                 });
     
     
-    },[clickCount,endValue]); 
+    },[clickCount,endValue,prevDealerCode,prevInfoCode]); 
 
 
     return(
@@ -80,7 +82,7 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode})=>{
         <Row>  
             <Col xs={24} md={12}> </Col>
             <Modal
-            title={'품목 리스트'}
+            title={`${infoName}-품목 리스트`}
             centered
             visible={getVisible}
             onCancel={changeVisibleValue}
@@ -96,14 +98,14 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode})=>{
 
             <div className='divTable' style={{marginTop:'3%'}}>
                 {materialArray && materialArray.map((v,i)=>(
-                    <div className='divTableRow'>
+                    <div className='divTableRow' style={{backgroundColor:materialArrayTopMaterial===v.materialCode ? "#d8d8d8":""}}>
                         <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={'https://image.hubpass.co.kr:441/delivery.gif'}/></div></div>
                         <div className='divTableCell'>
                         <font style={{fontFamily:'Hanna',fontSize:'2.2vh'}}>
                         {v.materialName}
                         </font>
                         <br />
-                        &nbsp;규격 : {v.dimension}
+                        &nbsp;규격 : {v.dimension} , {v.materialCode}
                         <br />
                         &nbsp;단위 : {v.unitName}
                         <br />

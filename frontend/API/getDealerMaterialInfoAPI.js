@@ -1,3 +1,4 @@
+import { Group } from "antd/lib/avatar";
 
 //https://www.youtube.com/watch?v=jQ4YD7Ip6T4 이거보고 해결 
 export const getDealerMaterialInfoAPI = async (actionData) =>{
@@ -15,7 +16,7 @@ export const getDealerMaterialInfoAPI = async (actionData) =>{
       let goUrl;
       goUrl=`https://www.hubpass.co.kr/asp/standard/DealerMaterialInfo.jsp?dealerCode=${dealerCode}&infoCode=${infoCode}&start=${start}&end=${end}`
 
-
+      console.log(goUrl);
       const response = await fetch(goUrl);
       const data = await response.json(); 
 
