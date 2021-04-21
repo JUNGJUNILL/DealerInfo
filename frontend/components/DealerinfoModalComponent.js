@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Col,Row } from 'antd';
 
+import DealerMaterialInfoComponent from './DealerMaterialInfoComponent'
+
+
 const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
 
     //모달창 보이기, 안보이기 값
@@ -77,14 +80,31 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
         setVisible(false);
     }
 
-    const getMaterialList = () =>{
 
-        return alert('준비 중 입니다.'); 
+    const [boleanValue ,setBooleanValue]= useState(false); 
+    const [getDetailMaterialInfo,setDetailMaterialInfo] = useState(null); 
+
+    //품목 상세 정보 가져오기
+    const getMaterialList = () =>{
+        setBooleanValue((value)=>!value);; 
+
     }
+
+    const chageBooleanValue = () =>{
+        setBooleanValue((prev)=>!prev); 
+      }
     
 
     return (
        <div>   
+       {/*품목 상세정보 모달 화면*/}
+       {boleanValue && <DealerMaterialInfoComponent
+                    visible={boleanValue} 
+                    func={chageBooleanValue}
+                    dealerCode={dealerCode}
+                    infocode={infocode}
+                        />
+       }
        <Row>
             <Col xs={24} md={12}></Col>
             <Modal
@@ -98,7 +118,6 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
               
              
                 >
-
                 <p style={{textAlign:'center'}}><font style={{fontFamily:'Hanna',fontSize:'4vh'}}>{stockinday} 거래량</font></p>
                 <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>납품처</font></p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{storeCount} 곳</font></p>

@@ -3,12 +3,19 @@ const fetch =require('node-fetch');
 import axios from 'axios'
 
 import {getDealerInfoAPI} from '../API/getDealerInfoAPI';
+import {getDealerMaterialInfoAPI} from '../API/getDealerMaterialInfoAPI';
 
 import {
 
     DEALERINFO_REQUEST,
     DEALERINFO_SUCCESS,
     DEALERINFO_FAILURE,
+
+    DEALERMATERIALINFO_REQUEST,
+    DEALERMATERIALINFO_SUCCESS,
+    DEALERMATERIALINFO_FAILURE,
+
+
 
 } from '../reducers/dealerInfoListReducer';
 
@@ -19,7 +26,7 @@ import {
     
 }
 
-
+//유통사 정보 리스트 가져오기 
 function* dealerInfoList(action){
     try{
         //백엔드 서버 사용 시 
@@ -47,6 +54,37 @@ function* dealerInfoList(action){
 }
 
 
+//유통사별 품목 정보 리스트 가져오기
+function* dealerMaterialInfoList(action){
+    try{
+        
+        const {result} =yield call(getDealerMaterialInfoAPI,action.data); 
+       
+
+        //유통사 정보를 바꿨을 경우
+        const  changeDealerInfoFlag =yield  action.data.prevDealerCode !== action.data.dealerCode || 
+                                            action.data.prevInfoCode   !== action.data.infoCode    ? true : false;
+      
+        yield put({
+            
+              type:DEALERMATERIALINFO_SUCCESS, 
+              data:result,
+              prevDealerCode :action.data.dealerCode,
+              prevInfoCode : action.data.infoCode,
+              changeDealerInfo : changeDealerInfoFlag,
+
+          });
+  
+      }catch(e){
+          console.error(e); 
+          yield put({
+              type:DEALERMATERIALINFO_FAILURE, 
+              error: e.response.data, 
+          }); 
+      }
+}
+
+
 function* watchDealerInfoList() {
     yield takeLatest(DEALERINFO_REQUEST, dealerInfoList);
     //TEST_REQUEST 액션이 실행될 때까지 기다리겠다.
@@ -57,9 +95,15 @@ function* watchDealerInfoList() {
 
 }
 
+function* watchDealerMaterialInfoList(){
+    yield takeLatest(DEALERMATERIALINFO_REQUEST, dealerMaterialInfoList);
+
+}
+
 
 export default function* testSaga() {
     yield all([
                 fork(watchDealerInfoList), 
+                fork(watchDealerMaterialInfoList), 
               ]); 
 }
