@@ -83,7 +83,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             if(action.changeDealerInfo){
                 draft.materialArray.length=0; 
             }
-            console.log('action.data.length==>', action.data.length); 
             draft.prevDealerCode=action.prevDealerCode;
             draft.prevInfoCode=action.prevInfoCode;
             draft.materialPerDataLength=action.data.length; 
