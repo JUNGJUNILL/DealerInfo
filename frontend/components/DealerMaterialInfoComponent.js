@@ -54,7 +54,6 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode,infoName})
     const onClickMore = useCallback(()=>{
 
         setClickCount(prev=>prev+1);
-        console.log('clickCount=>',clickCount); 
         /*
             100~200        처음 더보기         100 ~ 100
         
@@ -84,6 +83,7 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode,infoName})
             <Modal
             title={`${infoName}-품목 리스트`}
             centered
+            maskClosable={false}
             visible={getVisible}
             onCancel={changeVisibleValue}
             onOk={changeVisibleValue}

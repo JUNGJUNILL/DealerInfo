@@ -38,7 +38,18 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
         };
         var map = new kakao.maps.Map(container, options);
         var geocoder = new kakao.maps.services.Geocoder();
+
+
+
         geocoder.addressSearch(address, function(result, status) {
+
+                 map.setZoomable(false); //지도 확대 축소 차단 
+                 map.setDraggable(false); //지도 그레그 이동 차단
+
+                //지도 클릭 시..
+                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+                    window.open(`https://map.kakao.com/link/map/${infoName},${result[0].y},${result[0].x}`);     
+                });
 
             // 정상적으로 검색이 완료됐으면 
              if (status === kakao.maps.services.Status.OK) {
@@ -64,6 +75,8 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
 
 
         }, [])
+
+     
 
 
 
@@ -111,6 +124,7 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
             <Modal
                 title={infoName}
                 centered
+                maskClosable={false}
                 visible={getVisible}
                 onCancel={changeVisibleValue}
                 onOk={changeVisibleValue}
