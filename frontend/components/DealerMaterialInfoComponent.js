@@ -105,7 +105,7 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode,infoName})
                         {v.materialName}
                         </font>
                         <br />
-                        &nbsp;규격 : {v.dimension} , {v.materialCode}
+                        &nbsp;규격 : {v.dimension}
                         <br />
                         &nbsp;단위 : {v.unitName}
                         <br />
