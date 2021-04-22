@@ -23,7 +23,7 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode,infoName})
           } = useSelector((state)=>state.dealerInfoListReducer); 
 
     const [startValue,setStartValue] = useState(0); 
-    const [endValue,  setEndValue] = useState(10);
+    const [endValue,  setEndValue] = useState(100);
     const [clickCount , setClickCount] =useState(1); 
 
  
@@ -35,7 +35,7 @@ const DealerMaterialInfoComponent =({visible,func,dealerCode,infocode,infoName})
                 data:{  dealerCode:dealerCode,
                         infoCode:infocode,
                         start:0,
-                        end:10,
+                        end:100,
                         prevDealerCode:prevDealerCode,
                         prevInfoCode:prevInfoCode,
                         onClickMaterialInfoModal:getVisible
