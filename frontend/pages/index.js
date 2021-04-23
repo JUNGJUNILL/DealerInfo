@@ -178,33 +178,23 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
                
             {dealerInfoList && dealerInfoList.map((v,i)=>(
             
-                <div className='divTableRow' key={i}>
+                <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={i<=2?`https://image.hubpass.co.kr:441/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`:
                                                                                                                    v.storeCount === '0'? 'https://image.hubpass.co.kr:441/noorder.gif' :'https://image.hubpass.co.kr:441/delivery.gif'}/></div></div>
                     
                     <div className='divTableCell' >
                       <font color={i<=2 ? 'red' : ''} style={{fontFamily:'Hanna',fontSize:'3vh'}}>
-                      &nbsp;{v.infoName}
+                     {v.infoName}
                       </font>
                       <br/>
-                      <font style={{fontFamily:'Hanna',fontSize:'2.2vh'}}>
-                      &nbsp;&nbsp;업태:&nbsp;
-                      </font>
-                        <font style={{fontFamily:'jua',fontSize:'2vh'}}>{v.item}</font>
+                      <font style={{fontFamily:'jua',fontSize:'2vh'}}>&nbsp;{v.address}</font>
                       <br/>
-                      <font style={{fontFamily:'Hanna',fontSize:'2.2vh'}}>
-                      &nbsp;&nbsp;업종:&nbsp;
-                      </font>
-                      <font style={{fontFamily:'jua',fontSize:'2vh'}}>{v.status}</font>
-                      <br/>
-                      <font style={{fontFamily:'Hanna',fontSize:'2.2vh',opacity:'0.6'}}>
-                      &nbsp;&nbsp;주소:&nbsp;
-                      </font>
-                      <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>{v.address}</font>
+                      <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>&nbsp;{v.item,v.status}</font>
+                    
                       
                     </div>
-
-                     <div className='divTableCell' style={{paddingRight:'0.7%',fontFamily:'jua'}}><Button type="primary" onClick={onClickDetailInfo(i)} style={{borderRadius:'8px'}}>상세정보</Button></div>
+                    {/* <div className='divTableCell' style={{paddingRight:'0.7%',fontFamily:'jua'}}><Button type="primary" onClick={onClickDetailInfo(i)} style={{borderRadius:'8px'}}>상세정보</Button></div> */}
+                     
                 </div>
             ))}
            
