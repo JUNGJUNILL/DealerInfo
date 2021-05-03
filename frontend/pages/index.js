@@ -178,7 +178,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
          <div className='divTable' style={{marginTop:'3%'}}>
                
             {dealerInfoList && dealerInfoList.map((v,i)=>(
-             //'https://image.hubpass.co.kr:441/delivery.gif' 
+             //'https://image.hubpass.co.kr:441/delivery.gif dd' 
                 <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={i<=2?`https://image.hubpass.co.kr:441/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`:
                                                                                                                    v.storeCount === '0'? 'https://image.hubpass.co.kr:441/noorder.gif' :faker.image.imageUrl()}/></div></div>
