@@ -6,6 +6,7 @@ const { Option } = Select;
 import wrapper from '../store/configureStore';
 import {localDataList}from '../API/localData'; 
 import axios from 'axios';
+import faker from 'faker'; 
 
 import 
     {DEALERINFO_REQUEST,} 
@@ -177,10 +178,10 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
          <div className='divTable' style={{marginTop:'3%'}}>
                
             {dealerInfoList && dealerInfoList.map((v,i)=>(
-            
+             //'https://image.hubpass.co.kr:441/delivery.gif' 
                 <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={i<=2?`https://image.hubpass.co.kr:441/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`:
-                                                                                                                   v.storeCount === '0'? 'https://image.hubpass.co.kr:441/noorder.gif' :'https://image.hubpass.co.kr:441/delivery.gif'}/></div></div>
+                                                                                                                   v.storeCount === '0'? 'https://image.hubpass.co.kr:441/noorder.gif' :faker.image.imageUrl()}/></div></div>
                     
                     <div className='divTableCell' >
                       <font color={i<=2 ? 'red' : ''} style={{fontFamily:'Hanna',fontSize:'3vh'}}>
@@ -189,9 +190,17 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
                       <br/>
                       <font style={{fontFamily:'jua',fontSize:'2vh'}}>&nbsp;{v.address}</font>
                       <br/>
-                      <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>&nbsp;{v.item,v.status}</font>
-                    
-                      
+                      <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>&nbsp;{v.item,v.status}</font>            
+                      <br/>
+                      <font>{faker.name.findName()}</font>     
+                      <br/>                      
+                      <font>{faker.lorem.paragraph()}</font>  
+                      <br/>                
+                      <font>{faker.lorem.paragraph()}</font>  
+                      <br />     
+                      <font>{faker.lorem.text()}</font>  
+                      <br />
+                      <font>{faker.lorem.paragraphs()}</font>  
                     </div>
                     {/* <div className='divTableCell' style={{paddingRight:'0.7%',fontFamily:'jua'}}><Button type="primary" onClick={onClickDetailInfo(i)} style={{borderRadius:'8px'}}>상세정보</Button></div> */}
                      
