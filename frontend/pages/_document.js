@@ -8,7 +8,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="ko">
+      <Html>
         <Head>
             {/*구글에드 센스_20210504 */}
             <script data-ad-client="ca-pub-9160341796142118" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

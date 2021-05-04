@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next -pp 3002",
+    "dev": "next -p 3002",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
     "start": "cross-env NODE_ENV=production next start -p 80"
   },
