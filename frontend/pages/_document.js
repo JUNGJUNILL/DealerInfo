@@ -10,20 +10,8 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-            {/*구글에드 센스_20210423 */}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9160341796142118"
-            crossorigin="anonymous"></script>
-       
-            <script
-                    dangerouslySetInnerHTML={{
-                      __html: `
-                          (adsbygoogle = window.adsbygoogle || []).push({
-                              google_ad_client: "ca-pub-9160341796142118",
-                              enable_page_level_ads: true
-                        });
-                          `
-                    }}
-            />
+            {/*구글에드 센스_20210504 */}
+            <script data-ad-client="ca-pub-9160341796142118" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             
             
             {/*카카오맵*/}
