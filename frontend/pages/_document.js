@@ -12,7 +12,17 @@ class MyDocument extends Document {
         <Head>
             {/*구글에드 센스_20210504 */}
             <script data-ad-client="ca-pub-9160341796142118" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            
+            <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                 (adsbygoogle = window.adsbygoogle || []).push({
+                     google_ad_client: "ca-pub-9160341796142118",
+                     enable_page_level_ads: true
+                });
+                  `
+            }}
+          />
+
             
             {/*카카오맵*/}
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a84543564ea2efe6647cc57ca0f73aed&libraries=services"></script>
