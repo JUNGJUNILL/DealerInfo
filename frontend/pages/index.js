@@ -193,8 +193,9 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
                       <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>&nbsp;{v.item,v.status}</font>            
         
                     </div>
+                    {/* 
                     <div className='divTableCell' style={{paddingRight:'0.7%',fontFamily:'jua'}}><Button type="primary" onClick={onClickDetailInfo(i)} style={{borderRadius:'8px'}}>상세정보</Button></div> 
-                     
+                    */}
                 </div>
             ))}
            
