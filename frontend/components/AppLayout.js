@@ -50,10 +50,10 @@ const AppLayOut = ({children}) =>{
 
     <Col xs={24} md={6}>
     </Col>
-{/* 
+ 
     <div className="footerSub"></div>
-    <div className="footer">광고입니다.</div>
-*/}
+    <div className="footer">푸더입니다.</div>
+
     </Row> 
      
         ); 
