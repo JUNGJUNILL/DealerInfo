@@ -7,7 +7,7 @@ import wrapper from '../store/configureStore';
 import {localDataList}from '../API/localData'; 
 import axios from 'axios';
 import faker from 'faker'; 
-
+faker.locale = "ko";
 import 
     {DEALERINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
@@ -28,19 +28,10 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
   const [endValue,  setEndValue] = useState(50);
   const [clickCount , setClickCount] =useState(1); 
 
-  //첫 로드시 list 50개 가져오기 
-  // useEffect(()=>{
+  //에널리틱스 
 
-  //   dispatch({
-  //     type:DEALERINFO_REQUEST, 
-  //     data:{clientIp:clientIp,
-  //           init:'initLoad',
-  //           start:startValue,
-  //           end:endValue
-  //         },
-  //   });
     
-  // },[]); 
+
 
 
 
@@ -178,10 +169,10 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
          <div className='divTable' style={{marginTop:'3%'}}>
                
             {dealerInfoList && dealerInfoList.map((v,i)=>(
-             //'https://image.hubpass.co.kr:441/delivery.gif dd' 
+             //'https://image.hubpass.co.kr:441/delivery.gif ' 
                 <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={i<=2?`https://image.hubpass.co.kr:441/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`:
-                                                                                                                   v.storeCount === '0'? 'https://image.hubpass.co.kr:441/noorder.gif' :'https://image.hubpass.co.kr:441/delivery.gif'}/></div></div>
+                                                                                                                   v.storeCount === '0'? 'https://image.hubpass.co.kr:441/noorder.gif' :faker.image.imageUrl()}/></div></div>
                     
                     <div className='divTableCell' >
                       <font color={i<=2 ? 'red' : ''} style={{fontFamily:'Hanna',fontSize:'3vh'}}>
@@ -190,8 +181,12 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
                       <br/>
                       <font style={{fontFamily:'jua',fontSize:'2vh'}}>&nbsp;{v.address}</font>
                       <br/>
+
+
+                      
                       <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>&nbsp;{v.item,v.status}</font>            
-        
+                      <br/>
+                      {faker.lorem.paragraph()}
                     </div>
                     {/* 
                     <div className='divTableCell' style={{paddingRight:'0.7%',fontFamily:'jua'}}><Button type="primary" onClick={onClickDetailInfo(i)} style={{borderRadius:'8px'}}>상세정보</Button></div> 
