@@ -25,7 +25,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
          reginValue, 
          PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
   const [startValue,setStartValue] = useState(0); 
-  const [endValue,  setEndValue] = useState(50);
+  const [endValue,  setEndValue] = useState(100);
   const [clickCount , setClickCount] =useState(1); 
 
   //에널리틱스 
@@ -220,7 +220,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
             data:{clientIp:clientIp,
             init:'initLoad',
             start:0,
-            end:200
+            end:100
           },
       });
   

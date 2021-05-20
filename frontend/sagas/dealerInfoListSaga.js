@@ -33,13 +33,13 @@ function* dealerInfoList(action){
         //const result =yield call(dealerInfoListAPI,action.data); 
         const {result,region} =yield call(getDealerInfoAPI,action.data); 
         const {changeLocalValue} = yield action.data;
-        const newArray = result.map(v=>v={...v,...{ceoName:'헬로우'}});
+        //const newArray = result.map(v=>v={...v,...{ceoName:'헬로우'}});
         yield  put({
               type:DEALERINFO_SUCCESS, 
 
               //백엔드 서버 사용 시 
               //data:result.data,
-              data:newArray,
+              data:result,
               region:region,
               changeLocalValue:changeLocalValue,
           });
