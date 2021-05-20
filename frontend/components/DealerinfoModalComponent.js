@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Col,Row } from 'antd';
-
+import faker from 'faker'; 
+faker.locale = "ko";
 import DealerMaterialInfoComponent from './DealerMaterialInfoComponent'
 
 
@@ -167,6 +168,11 @@ const DealerinfoModalComponent = ({visible,dealerinfo,func}) =>{
                 <div>
                 <div id="map" style={{width:'100%',height:'300px'}}></div>
                 </div>
+
+                <hr style={{opacity:'0.4'}}/>
+                <p>&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>비고사항</font></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{faker.lorem.paragraphs()+faker.lorem.paragraph()+faker.lorem.paragraphs()}</font></p>
+
            
             </Modal>
             <Col /> 
