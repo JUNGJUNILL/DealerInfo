@@ -29,6 +29,9 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
   const [clickCount , setClickCount] =useState(1); 
 
   //에널리틱스 
+  useEffect(()=>{
+    if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
+  },[]); 
 
     
 
@@ -163,7 +166,13 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
             </Select>
             */}
         </div>
-        
+        <ins className="adsbygoogle"
+            style={{display:'block'}}
+            data-ad-client={'ca-pub-9160341796142118'}
+            data-ad-slot={'1823921553'}
+            data-ad-format={'auto'}
+            data-full-width-responsive={'true'}></ins>
+  
 
         {/*데이터 리스트*/}
          <div className='divTable' style={{marginTop:'3%'}}>
