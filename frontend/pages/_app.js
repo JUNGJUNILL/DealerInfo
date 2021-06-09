@@ -9,6 +9,7 @@ import wrapper from '../store/configureStore';
 
 const Personal_Project02 = ({ Component, pageProps }) => (
     <div>
+      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a84543564ea2efe6647cc57ca0f73aed&libraries=services"></script>
       <AppLayout>
          <Component {...pageProps} />
       </AppLayout>

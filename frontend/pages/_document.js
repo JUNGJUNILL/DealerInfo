@@ -24,8 +24,7 @@ class MyDocument extends Document {
 
 
             {/*카카오맵*/}
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a84543564ea2efe6647cc57ca0f73aed&libraries=services"></script>
-
+           
             <meta name="Keywords" content="도매,도소매,제조,채소,과실,농산물,가공,수산물,가공식품,식품,소매,무역,축산물,슈퍼마켓,육류,식료품,전자상거래,주류,식자재 중개,식품 B2B 사이트,식자재마트 리스트,식자재마트 현황,식자재마트,식자재마트 추천,식품 업체 정보,식품 업체 리스트"></meta>
             <meta property="og:url" content="http://www.hubfoodlink.com"></meta>
             <meta property="og:image" content="https://image.hubpass.co.kr:441/Vegetable.gif"></meta>
