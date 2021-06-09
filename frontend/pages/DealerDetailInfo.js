@@ -34,12 +34,6 @@ const DealerDetailInfo =()=>{
     //모달창 보이기, 안보이기 값
     const [boleanValue ,setBooleanValue]= useState(false); 
 
-    //원단위 콤마 정규표현식
-    const pattern = /\d{1,3}(?=(\d{3})+(?!\d))/g; 
-
-    //빈칸제거 정규표현식 
-    const ceoNameEdit = ceoName.replace(/ /g,"").split(''); 
-          ceoNameEdit.splice(1,1,'*')
 
     //품목 상세 정보 가져오기
     const getMaterialList = () =>{ 
@@ -126,12 +120,12 @@ const DealerDetailInfo =()=>{
 
         {/*품목 리스트*/}
         <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>품목 리스트</font>&nbsp;&nbsp;&nbsp;&nbsp; <Link as='/DealerMaterialInfo' href={{pathname:'/DealerMaterialInfo',query:{dealerCode:dealerCode,infocode:infocode,infoName:infoName}}}><Button type="primary"  style={{borderRadius:'8px'}}><font style={{paddingRight:'0.7%',fontFamily:'jua'}}>상세정보</font></Button></Link></p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{orderCount.replace(pattern,'$&,')} 가지</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{orderCount} 가지</font></p>
         <hr style={{opacity:'0.4'}}/>
 
         {/*납품된 품목 총 수량*/}
         <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>납품된 품목 총 수량</font></p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{materialQtyCount.replace(pattern,'$&,')}</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{materialQtyCount}</font></p>
         <hr style={{opacity:'0.4'}}/>
 
          {/*매출액*/}
@@ -142,7 +136,7 @@ const DealerDetailInfo =()=>{
 
         {/*대표자*/}
         <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>대표자</font></p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{ceoNameEdit.join('')}</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{ceoName}</font></p>
         <hr style={{opacity:'0.4'}}/>
 
         {/*연락처*/}

@@ -99,6 +99,14 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
    const onClickDetailInfo =(i)=>() =>{
 
+    
+    //원단위 콤마 정규표현식
+    const pattern = /\d{1,3}(?=(\d{3})+(?!\d))/g; 
+
+    //빈칸제거 정규표현식 
+    const ceoNameEdit = dealerInfoList[i].ceoName.replace(/ /g,"").split(''); 
+          ceoNameEdit.splice(1,1,'*')
+
     //setDealerInfo({...dealerInfoList[i]});
     let queryString = "?dealerCode="+dealerInfoList[i].dealerCode
                     +"&infocode="+dealerInfoList[i].infocode
@@ -109,13 +117,13 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
                     +"&infoPhone="+dealerInfoList[i].infoPhone
                     +"&handphone="+dealerInfoList[i].handphone
                     +"&storeCount="+dealerInfoList[i].storeCount
-                    +"&orderCount="+dealerInfoList[i].orderCount
-                    +"&materialQtyCount="+dealerInfoList[i].materialQtyCount
+                    +"&orderCount="+dealerInfoList[i].orderCount.replace(pattern,'$&,')
+                    +"&materialQtyCount="+dealerInfoList[i].materialQtyCount.replace(pattern,'$&,')
                     +"&moneyTohangul="+dealerInfoList[i].moneyTohangul
                     +"&money="+dealerInfoList[i].money
                     +"&region="+dealerInfoList[i].region
                     +"&stockinday="+dealerInfoList[i].stockinday
-                    +"&ceoName="+dealerInfoList[i].ceoName
+                    +"&ceoName="+ceoNameEdit.join('')
 
 
     router.push('/DealerDetailInfo'+queryString ,'/DealerDetailInfo');
