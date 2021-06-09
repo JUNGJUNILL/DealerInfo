@@ -34,6 +34,15 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
   //에널리틱스 
   useEffect(()=>{
     if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
+
+    dispatch({
+      type:DEALERINFO_REQUEST,
+          data:{clientIp:clientIp,
+          init:'initLoad',
+          start:0,
+          end:100
+        },
+    });
   },[]); 
 
     
@@ -253,20 +262,20 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 
   try{
 
-      const clientIp ='36.39.49.234';//context.req.headers['x-real-ip'] || context.req.connection.remoteAddress;
+      const clientIp =process.env.NODE_ENV === 'production' ? context.req.headers['x-real-ip'] || context.req.connection.remoteAddress : '36.39.49.234';
       const apiResult =await axios.get(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`);
       const clientRegion = apiResult.data.region || 'Seoul' || null; 
 
 
 
-      context.store.dispatch({
-        type:DEALERINFO_REQUEST,
-            data:{clientIp:clientIp,
-            init:'initLoad',
-            start:0,
-            end:100
-          },
-      });
+      // context.store.dispatch({
+      //   type:DEALERINFO_REQUEST,
+      //       data:{clientIp:clientIp,
+      //       init:'initLoad',
+      //       start:0,
+      //       end:100
+      //     },
+      // });
   
     
       // 서버에서 saga에서 SUCCESS 되서 데이터가 완전히 다 만들어진 
@@ -274,8 +283,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     
       // REQUEST 해서 SUCCESS 될 때까지 기다려주기 위한 장치
       // 이걸 빼면 그냥 REQUEST 요청만 완료된 상태가 되어버리기 때문에 데이터가 나오지 않을 것이다.
-      context.store.dispatch(END); 
-      await context.store.sagaTask.toPromise(); 
+      // context.store.dispatch(END); 
+      // await context.store.sagaTask.toPromise(); 
 
 
       
