@@ -141,6 +141,27 @@ http://www.daks.me/try.php?filename=trycss3_pagination5.php
   border-bottom: 1px soli d#a0a0a0;
 }
 
+.divTableAds{
+  display: table;
+  width: 100%;
+  margin-top: 3%;
+}
+
+.divTableAdsRow {
+  display: table-row;
+  height: 100%;
+  width: 100%;
+}
+
+.divTableAdsCell {
+
+  display: table-cell;
+  vertical-align: middle;
+  word-wrap: break-word;
+
+}
+
+
 div.divTableRow:hover {
 
   background-color: #d8d8d8;
@@ -241,21 +262,26 @@ img {
   footerSub와 footer의 height는 동일해야 한다.
 */
 .footerSub {
-  background-color: "transparent";
+  /*background-color: "transparent";*/
   width: 100%;
   height: 30px;
 } 
 
+
 .footer {
- /* position: sticky;*/
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
-  height: 30px;
+  /* position: sticky;*/
+  /* position: relative;*/
+  /* position: fixed;*/
+
+ position: relative;
+ left: 0;
+ bottom: 0;
+ width: 100%;
+ /*background-color: red;*/
+ /*color: white;*/
+ text-align: center;
+ height: 30px;
+
 
 }
 

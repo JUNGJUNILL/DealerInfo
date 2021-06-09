@@ -6,8 +6,8 @@ const { Option } = Select;
 import wrapper from '../store/configureStore';
 import {localDataList}from '../API/localData'; 
 import axios from 'axios';
-import faker from 'faker'; 
-faker.locale = "ko";
+import {useRouter} from 'next/router'; 
+
 import 
     {DEALERINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
@@ -15,7 +15,7 @@ from '../reducers/dealerInfoListReducer';
 import {END} from 'redux-saga'; 
 
 import DealerinfoModalComponent from '../components/DealerinfoModalComponent'
-
+import DealerDetailInfo from './DealerDetailInfo'; 
 
 const DealerInfo = ({clientIp,clientRegion}) =>{
 
@@ -27,6 +27,9 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
   const [startValue,setStartValue] = useState(0); 
   const [endValue,  setEndValue] = useState(100);
   const [clickCount , setClickCount] =useState(1); 
+  const router = useRouter(); 
+
+
 
   //에널리틱스 
   useEffect(()=>{
@@ -96,7 +99,26 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
    const onClickDetailInfo =(i)=>() =>{
 
-    setDealerInfo({...dealerInfoList[i]});
+    //setDealerInfo({...dealerInfoList[i]});
+    let queryString = "?dealerCode="+dealerInfoList[i].dealerCode
+                    +"&infocode="+dealerInfoList[i].infocode
+                    +"&infoName="+dealerInfoList[i].infoName
+                    +"&address="+dealerInfoList[i].address
+                    +"&item="+dealerInfoList[i].item
+                    +"&status="+dealerInfoList[i].status
+                    +"&infoPhone="+dealerInfoList[i].infoPhone
+                    +"&handphone="+dealerInfoList[i].handphone
+                    +"&storeCount="+dealerInfoList[i].storeCount
+                    +"&orderCount="+dealerInfoList[i].orderCount
+                    +"&materialQtyCount="+dealerInfoList[i].materialQtyCount
+                    +"&moneyTohangul="+dealerInfoList[i].moneyTohangul
+                    +"&money="+dealerInfoList[i].money
+                    +"&region="+dealerInfoList[i].region
+                    +"&stockinday="+dealerInfoList[i].stockinday
+                    +"&ceoName="+dealerInfoList[i].ceoName
+
+
+    router.push('/DealerDetailInfo'+queryString ,'/DealerDetailInfo');
     setBooleanValue((value)=>!value);; 
 
   }
@@ -135,14 +157,6 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
     return (
         <div>
-        {/*상세정보 모달 화면*/}
-        {boleanValue && <DealerinfoModalComponent 
-                          visible={boleanValue} 
-                          dealerinfo={getDealerInfo}
-                          func={chageBooleanValue}
-                          
-                        />
-        }
         
         <div style={{width:'100%',textAlign:"center"}}>
             <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사</font> <br/>
@@ -166,17 +180,30 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
             </Select>
             */}
         </div>
+      {/* 
         <ins className="adsbygoogle"
-            style={{display:'block'}}
+            style={{display:'block',marginTop:'3%'}}
             data-ad-client={'ca-pub-9160341796142118'}
             data-ad-slot={'1823921553'}
             data-ad-format={'auto'}
             data-full-width-responsive={'true'}></ins>
-  
+      */}
+
+          <div className='divTableAds' >
+            <div className='divTableAdsRow' >
+              <div className='divTableAdsCell'>
+                  <ins className="adsbygoogle"
+                  style={{display:'block', textAlign:'center'}}
+                  data-ad-layout={"in-article"}
+                  data-ad-format={"fluid"}
+                  data-ad-client={"ca-pub-9160341796142118"}
+                  data-ad-slot={"5405263289"}></ins>
+              </div>
+            </div>
+          </div>
 
         {/*데이터 리스트*/}
-         <div className='divTable' style={{marginTop:'3%'}}>
-         
+         <div className='divTable'>
             {dealerInfoList && dealerInfoList.map((v,i)=>(
              //'https://image.hubpass.co.kr:441/delivery.gif ' 
                 <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
@@ -196,7 +223,6 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
                       
                       <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>&nbsp;{v.item,v.status}</font>            
                       <br/>
-                      {faker.random.words()}
                     </div>
                     {/* 
                     <div className='divTableCell' style={{paddingRight:'0.7%',fontFamily:'jua'}}><Button type="primary" onClick={onClickDetailInfo(i)} style={{borderRadius:'8px'}}>상세정보</Button></div> 

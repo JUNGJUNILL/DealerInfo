@@ -39,20 +39,26 @@ const AppLayOut = ({children}) =>{
 
         <Col  xs={24} md={12}>
         <ul className="navul">
-    
+        {/*
             <li className="navli" onClick={catergoriList}><UnorderedListOutlined /></li>
+        */}
             <li className="navli"><HomeOutlined onClick={gotoHome} /></li>    
       
         </ul>
        
     {children}
+    
+        <div className="footerSub"></div>
+ 
+        <div className="footer">
+         <font style={{fontFamily:'jua',fontSize:'2.5vh',opacity:'0.5'}}>문의 : 개발자 이메일 devjji1207@gmail.com</font>
+        </div>
+  
+
     </Col>
 
     <Col xs={24} md={6}>
     </Col>
- 
-    <div className="footerSub"></div>
-    <div className="footer">푸더입니다.</div>
 
     </Row> 
      
