@@ -33,7 +33,7 @@ const DealerMaterialInfo =()=>{
           } = useSelector((state)=>state.dealerInfoListReducer); 
 
     const [startValue,setStartValue] = useState(0); 
-    const [endValue,  setEndValue] = useState(100);
+    const [endValue,  setEndValue] = useState(45);
     const [clickCount , setClickCount] =useState(1); 
 
  
