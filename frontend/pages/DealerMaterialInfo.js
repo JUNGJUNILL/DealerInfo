@@ -113,21 +113,6 @@ const DealerMaterialInfo =()=>{
             <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(인기 많은 품목순으로 정렬)</font>        
         </div>
         <br />
-  
-
-        <div className='divTableAds' >
-        <div className='divTableAdsRow' >
-          <div className='divTableAdsCell'>
-          <ins className="adsbygoogle"
-                style={{display:'block' ,textAlign:'center',border:'1px solid'}}
-                data-ad-layout="in-article"
-                data-ad-format="fluid"
-                data-ad-client="ca-pub-9160341796142118"
-                data-ad-slot="9182008142"></ins>
-          </div>
-        </div>
-      </div>
-
 
         <div className='divTable' style={{marginTop:'3%'}}>
             {materialArray && materialArray.map((v,i)=>(
@@ -150,7 +135,21 @@ const DealerMaterialInfo =()=>{
         </div>
         {materialPerDataLength >= endValue && 
         <Button type="primary" onClick={onClickMore} loading={materialMoreBtnLoading} block>더 보기 ▼</Button> }
+       
+        <br/>
 
+        <div className='divTableAds' >
+        <div className='divTableAdsRow' >
+          <div className='divTableAdsCell'>
+          <ins className="adsbygoogle"
+                style={{display:'block' ,textAlign:'center',border:'1px solid'}}
+                data-ad-layout="in-article"
+                data-ad-format="fluid"
+                data-ad-client="ca-pub-9160341796142118"
+                data-ad-slot="9182008142"></ins>
+          </div>
+        </div>
+      </div>
      
         </Modal>
         <Col /> 

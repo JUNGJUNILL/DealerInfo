@@ -154,21 +154,17 @@ const DealerDetailInfo =()=>{
         <div>
         <div id="map" style={{width:'100%',height:'300px'}}></div>
         </div>
-
-        <div className='divTableAds' >
-        <div className='divTableAdsRow' >
-          <div className='divTableAdsCell'>
+        <br/>
+        <p>
           <ins className="adsbygoogle"
-                style={{display:'block' ,textAlign:'center',border:'1px solid'}}
+                style={{display:'block' ,textAlign:'center',border:'1px'}}
                 data-ad-layout="in-article"
                 data-ad-format="fluid"
                 data-ad-client="ca-pub-9160341796142118"
                 data-ad-slot="1678868744"></ins>
-          </div>
-        </div>
+       </p>
       </div>
 
-        </div>
 
      
     )
