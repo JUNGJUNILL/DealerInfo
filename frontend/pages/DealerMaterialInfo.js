@@ -39,7 +39,7 @@ const DealerMaterialInfo =()=>{
  
     //첫 로딩 시.. 
     useEffect(()=>{
-               
+        if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
                 dispatch({
                 type:DEALERMATERIALINFO_REQUEST, 
                 data:{  dealerCode:dealerCode,
@@ -51,6 +51,7 @@ const DealerMaterialInfo =()=>{
                         onClickMaterialInfoModal:getVisible
                     },
                 });
+               
 
     },[]); 
 
@@ -117,12 +118,12 @@ const DealerMaterialInfo =()=>{
         <div className='divTableAds' >
         <div className='divTableAdsRow' >
           <div className='divTableAdsCell'>
-              <ins className="adsbygoogle"
-              style={{display:'block', textAlign:'center'}}
-              data-ad-layout={"in-article"}
-              data-ad-format={"fluid"}
-              data-ad-client={"ca-pub-9160341796142118"}
-              data-ad-slot={"5405263289"}></ins>
+          <ins className="adsbygoogle"
+                style={{display:'block' ,textAlign:'center',border:'1px solid'}}
+                data-ad-layout="in-article"
+                data-ad-format="fluid"
+                data-ad-client="ca-pub-9160341796142118"
+                data-ad-slot="9182008142"></ins>
           </div>
         </div>
       </div>
@@ -130,6 +131,7 @@ const DealerMaterialInfo =()=>{
 
         <div className='divTable' style={{marginTop:'3%'}}>
             {materialArray && materialArray.map((v,i)=>(
+                
                 <div className='divTableRow' style={{backgroundColor:materialArrayTopMaterial===v.materialCode ? "#d8d8d8":""}}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={'https://image.hubpass.co.kr:441/delivery.gif'}/></div></div>
                     <div className='divTableCell'>

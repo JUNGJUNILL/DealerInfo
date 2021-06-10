@@ -53,6 +53,9 @@ const DealerDetailInfo =()=>{
 
      //카카오 맵 api 가져다 씀 
      useEffect(()=>{
+        if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
+
+
         var container = document.getElementById('map');
         var options = {
           center: new kakao.maps.LatLng(0, 0), //default ,지도 정보가 이상할
@@ -151,6 +154,19 @@ const DealerDetailInfo =()=>{
         <div>
         <div id="map" style={{width:'100%',height:'300px'}}></div>
         </div>
+
+        <div className='divTableAds' >
+        <div className='divTableAdsRow' >
+          <div className='divTableAdsCell'>
+          <ins className="adsbygoogle"
+                style={{display:'block' ,textAlign:'center',border:'1px solid'}}
+                data-ad-layout="in-article"
+                data-ad-format="fluid"
+                data-ad-client="ca-pub-9160341796142118"
+                data-ad-slot="1678868744"></ins>
+          </div>
+        </div>
+      </div>
 
         </div>
 
