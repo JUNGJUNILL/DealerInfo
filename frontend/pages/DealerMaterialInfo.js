@@ -97,7 +97,7 @@ const DealerMaterialInfo =()=>{
 
     //검색
     const onClickMaterial = useCallback(()=>{
-
+        return alert('준비 중 입니다.');
         if(materialName.length === 0 || materialName.replace(blank_pattern,'')===""){
             refMaterialName.current.focus();  
             alert('검색 시 품명은 필수입니다.'); 
