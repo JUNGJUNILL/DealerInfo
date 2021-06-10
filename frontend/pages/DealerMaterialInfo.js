@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Modal, Button, Col,Row,Input } from 'antd';
+import React, { useState, useEffect, useCallback,useRef } from 'react';
+import { Modal, Button, Col,Row,Input,Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-
+const { Search } = Input;
 import 
     {DEALERMATERIALINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
@@ -33,8 +33,12 @@ const DealerMaterialInfo =()=>{
           } = useSelector((state)=>state.dealerInfoListReducer); 
 
     const [startValue,setStartValue] = useState(0); 
-    const [endValue,  setEndValue] = useState(45);
+    const [endValue,  setEndValue] = useState(25);
     const [clickCount , setClickCount] =useState(1); 
+    const [materialName,setMaterialName]= useState('');
+    const [dimension, setDimension] = useState(''); 
+    const refMaterialName = useRef(); 
+    const refDimension = useRef(); 
 
  
     //첫 로딩 시.. 
@@ -45,10 +49,13 @@ const DealerMaterialInfo =()=>{
                 data:{  dealerCode:dealerCode,
                         infoCode:infocode,
                         start:0,
-                        end:45,
+                        end:25,
                         prevDealerCode:prevDealerCode,
                         prevInfoCode:prevInfoCode,
-                        onClickMaterialInfoModal:getVisible
+                        onClickMaterialInfoModal:getVisible,
+
+                        materialName:encodeURIComponent(materialName),
+                        dimension:encodeURIComponent(dimension),
                     },
                 });
                
@@ -80,11 +87,49 @@ const DealerMaterialInfo =()=>{
                         end:endValue,
                         prevDealerCode:prevDealerCode,
                         prevInfoCode:prevInfoCode,
+                        materialName:encodeURIComponent(materialName),
+                        dimension:encodeURIComponent(dimension),
                     },
                 });
     
     
-    },[clickCount,endValue,prevDealerCode,prevInfoCode]); 
+    },[clickCount,endValue,prevDealerCode,prevInfoCode,materialName,dimension]); 
+
+    //검색
+    const onClickMaterial = useCallback(()=>{
+
+        if(materialName.length === 0 || materialName.replace(blank_pattern,'')===""){
+            refMaterialName.current.focus();  
+            alert('검색 시 품명은 필수입니다.'); 
+            return; 
+        }
+        
+        dispatch({
+            type:DEALERMATERIALINFO_REQUEST, 
+            data:{  dealerCode:dealerCode,
+                    infoCode:infocode,
+                    start:0,
+                    end:25,
+                    prevDealerCode:prevDealerCode,
+                    prevInfoCode:prevInfoCode,
+                    onClickMaterialInfoModal:getVisible,
+                    materialName:materialName,
+                    dimension:dimension,
+                },
+            });
+
+
+        },[clickCount,endValue,prevDealerCode,prevInfoCode,materialName,dimension]); 
+
+    const blank_pattern = /^\s+|\s+&/g; 
+
+    const onChangeMaterialName=useCallback((e)=>{
+        setMaterialName(e.target.value); 
+    },[materialName])
+
+    const onChangeDimension=useCallback((e)=>{
+        setDimension(e.target.value); 
+    },[dimension])
 
     const abc = () =>{
       setVisible(false); 
@@ -96,7 +141,7 @@ const DealerMaterialInfo =()=>{
     return (
         <div>
         <Row>  
-        <Col xs={24} md={12}> </Col>
+        
         <Modal
         title={`${infoName}-품목 리스트`}
         centered
@@ -110,9 +155,17 @@ const DealerMaterialInfo =()=>{
         >
         <div style={{width:'100%',textAlign:"center"}}>
             <font style={{fontFamily:'Hanna',fontSize:'3vh'}}>품목 리스트</font> <br/>
-            <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(인기 많은 품목순으로 정렬)</font>        
+            <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(인기 많은 품목순으로 정렬)</font>   
+            <br/>
+            <br/>
+            <Space direction="horizontal">
+            <Input placeholder="품명" onChange={onChangeMaterialName} ref={refMaterialName}/>
+            <Input placeholder="규격" onChange={onChangeDimension} />
+            <Button onClick={onClickMaterial} loading={materialMoreBtnLoading}>검색</Button>
+            </Space>
         </div>
         <br />
+     
 
         <div className='divTable' style={{marginTop:'3%'}}>
             {materialArray && materialArray.map((v,i)=>(
@@ -152,7 +205,7 @@ const DealerMaterialInfo =()=>{
       </div>
      
         </Modal>
-        <Col /> 
+     
 
     </Row>
         </div>

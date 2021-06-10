@@ -8,13 +8,17 @@ export const getDealerMaterialInfoAPI = async (actionData) =>{
             dealerCode, 
             infoCode,
             start,
-            end
+            end,
+            materialName,
+            dimension
+
           } = actionData;
         
 
-
+      let p_materialName=encodeURIComponent(materialName);
+      let p_dimension=encodeURIComponent(dimension);
       let goUrl;
-      goUrl=`https://www.hubpass.co.kr/asp/standard/DealerMaterialInfo.jsp?dealerCode=${dealerCode}&infoCode=${infoCode}&start=${start}&end=${end}`
+      goUrl=`https://www.hubpass.co.kr/asp/standard/DealerMaterialInfo.jsp?dealerCode=${dealerCode}&infoCode=${infoCode}&start=${start}&end=${end}&materialName=${p_materialName}&dimension=${p_dimension}`
 
       console.log(goUrl);
       const response = await fetch(goUrl);
