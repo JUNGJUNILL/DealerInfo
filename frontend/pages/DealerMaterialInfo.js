@@ -45,7 +45,7 @@ const DealerMaterialInfo =()=>{
                 data:{  dealerCode:dealerCode,
                         infoCode:infocode,
                         start:0,
-                        end:100,
+                        end:45,
                         prevDealerCode:prevDealerCode,
                         prevInfoCode:prevInfoCode,
                         onClickMaterialInfoModal:getVisible
