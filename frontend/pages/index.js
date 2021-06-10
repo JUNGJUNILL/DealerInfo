@@ -1,4 +1,4 @@
-import React , {useState,useEffect,useCallback,createRef}from 'react'
+import React , {useState,useEffect,useCallback}from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Select ,Button} from 'antd';
 const { Option } = Select;
@@ -12,10 +12,6 @@ import
     {DEALERINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
 
-import {END} from 'redux-saga'; 
-
-import DealerinfoModalComponent from '../components/DealerinfoModalComponent'
-import DealerDetailInfo from './DealerDetailInfo'; 
 
 const DealerInfo = ({clientIp,clientRegion}) =>{
 
@@ -25,7 +21,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
          reginValue, 
          PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
   const [startValue,setStartValue] = useState(0); 
-  const [endValue,  setEndValue] = useState(100);
+  const [endValue,  setEndValue] = useState(50);
   const [clickCount , setClickCount] =useState(1); 
   const router = useRouter(); 
 
@@ -40,7 +36,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
           data:{clientIp:clientIp,
           init:'initLoad',
           start:0,
-          end:100
+          end:50
         },
     });
   },[]); 
