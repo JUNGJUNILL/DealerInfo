@@ -132,7 +132,9 @@ const DealerMaterialInfo =()=>{
     },[dimension])
 
     const onKeyPressMaterialSearch = (e) =>{
-        alert(e.key); 
+        if(e.key==='Enter'){
+            onClickMaterial(); 
+        }
     }
 
     const abc = () =>{
@@ -164,7 +166,7 @@ const DealerMaterialInfo =()=>{
             <br/>
             <Space direction="horizontal">
             <Input placeholder="품명" onKeyPress={onKeyPressMaterialSearch} onChange={onChangeMaterialName} ref={refMaterialName}/>
-            <Input placeholder="규격" onChange={onChangeDimension} />
+            <Input placeholder="규격" onKeyPress={onKeyPressMaterialSearch} onChange={onChangeDimension} />
             <Button onClick={onClickMaterial}  loading={materialMoreBtnLoading}>검색</Button>
             </Space>
         </div>
