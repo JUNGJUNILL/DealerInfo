@@ -31,23 +31,32 @@ const DealerDetailInfo =()=>{
         ceoName
     } = router.query; 
 
-    //모달창 보이기, 안보이기 값
-    const [boleanValue ,setBooleanValue]= useState(false); 
+    // //모달창 보이기, 안보이기 값
+    // const [boleanValue ,setBooleanValue]= useState(false); 
 
 
-    //품목 상세 정보 가져오기
-    const getMaterialList = () =>{ 
+    // //품목 상세 정보 가져오기
+    // const getMaterialList = () =>{ 
 
-        //router.push('/DealerMaterialInfo');
-        setBooleanValue((value)=>!value);; 
+    //     //router.push('/DealerMaterialInfo');
+    //     setBooleanValue((value)=>!value);; 
+
+    // }
+
+    
+    // const chageBooleanValue = () =>{
+    //     setBooleanValue((prev)=>!prev); 
+    //   }
+    
+    const onClickMaterialInfo =()=>{
+
+        let queryString = "?dealerCode="+dealerCode
+                    +"&infocode="+infocode
+                    +"&infoName="+infoName
+
+        router.push('/DealerMaterialInfo'+queryString ,'/DealerMaterialInfo');
 
     }
-
-    
-    const chageBooleanValue = () =>{
-        setBooleanValue((prev)=>!prev); 
-      }
-    
 
 
 
@@ -122,8 +131,8 @@ const DealerDetailInfo =()=>{
         <hr style={{opacity:'0.4'}}/>
 
         {/*품목 리스트*/}
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>품목 리스트</font>&nbsp;&nbsp;&nbsp;&nbsp; <Link as='/DealerMaterialInfo' href={{pathname:'/DealerMaterialInfo',query:{dealerCode:dealerCode,infocode:infocode,infoName:infoName}}}><Button type="primary"  style={{borderRadius:'8px'}}><font style={{paddingRight:'0.7%',fontFamily:'jua'}}>상세정보</font></Button></Link></p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{orderCount} 가지</font></p>
+        <p onClick={onClickMaterialInfo} >&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}} >품목 리스트</font>&nbsp;&nbsp;&nbsp;&nbsp; <Link as='/DealerMaterialInfo' href={{pathname:'/DealerMaterialInfo',query:{dealerCode:dealerCode,infocode:infocode,infoName:infoName}}}><Button type="primary"  style={{borderRadius:'8px'}}><font style={{paddingRight:'0.7%',fontFamily:'jua'}}>품목상세정보</font></Button></Link></p>
+        <p onClick={onClickMaterialInfo} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{orderCount} 가지</font></p>
         <hr style={{opacity:'0.4'}}/>
 
         {/*납품된 품목 총 수량*/}

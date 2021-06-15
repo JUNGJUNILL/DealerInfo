@@ -43,7 +43,11 @@ const DealerMaterialInfo =()=>{
  
     //첫 로딩 시.. 
     useEffect(()=>{
+        //구글 에드센스 광고
         if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
+         
+                refMaterialName.current.focus(); 
+
                 dispatch({
                 type:DEALERMATERIALINFO_REQUEST, 
                 data:{  dealerCode:dealerCode,
@@ -87,14 +91,16 @@ const DealerMaterialInfo =()=>{
                         end:endValue,
                         prevDealerCode:prevDealerCode,
                         prevInfoCode:prevInfoCode,
-                        materialName:encodeURIComponent(materialName),
-                        dimension:encodeURIComponent(dimension),
+                        materialName:materialName,
+                        dimension:dimension,
                     },
                 });
     
     
     },[clickCount,endValue,prevDealerCode,prevInfoCode,materialName,dimension]); 
 
+
+    const blank_pattern = /^\s+|\s+&/g; 
     //검색
     const onClickMaterial = useCallback(()=>{
        // return alert('준비 중 입니다.');
@@ -121,7 +127,7 @@ const DealerMaterialInfo =()=>{
 
         },[clickCount,endValue,prevDealerCode,prevInfoCode,materialName,dimension]); 
 
-    const blank_pattern = /^\s+|\s+&/g; 
+    
 
     const onChangeMaterialName=useCallback((e)=>{
         setMaterialName(e.target.value); 
@@ -131,6 +137,7 @@ const DealerMaterialInfo =()=>{
         setDimension(e.target.value); 
     },[dimension])
 
+    //인풋창에서 enter 눌렀을 시(pc,mobile 동일)
     const onKeyPressMaterialSearch = (e) =>{
         if(e.key==='Enter'){
             onClickMaterial(); 
