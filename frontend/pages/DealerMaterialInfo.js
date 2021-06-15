@@ -46,8 +46,6 @@ const DealerMaterialInfo =()=>{
         //구글 에드센스 광고
         if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
          
-                refMaterialName.current.focus(); 
-
                 dispatch({
                 type:DEALERMATERIALINFO_REQUEST, 
                 data:{  dealerCode:dealerCode,
