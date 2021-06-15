@@ -1,4 +1,5 @@
-import { Group } from "antd/lib/avatar";
+import euckrEncoder from  '../util/euckrEncoder';
+
 
 //https://www.youtube.com/watch?v=jQ4YD7Ip6T4 이거보고 해결 
 export const getDealerMaterialInfoAPI = async (actionData) =>{
@@ -15,12 +16,12 @@ export const getDealerMaterialInfoAPI = async (actionData) =>{
           } = actionData;
         
 
-      let p_materialName=encodeURIComponent(materialName);
-      let p_dimension=encodeURIComponent(dimension);
+      let p_materialName=euckrEncoder(materialName);
+      let p_dimension=euckrEncoder(dimension);
       let goUrl;
       goUrl=`https://www.hubpass.co.kr/asp/standard/DealerMaterialInfo.jsp?dealerCode=${dealerCode}&infoCode=${infoCode}&start=${start}&end=${end}&materialName=${p_materialName}&dimension=${p_dimension}`
 
-      console.log(goUrl);
+      //console.log(goUrl);
       const response = await fetch(goUrl);
       const data = await response.json(); 
 
