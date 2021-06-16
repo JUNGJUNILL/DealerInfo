@@ -131,7 +131,7 @@ const DealerDetailInfo =()=>{
         <hr style={{opacity:'0.4'}}/>
 
         {/*품목 리스트*/}
-        <p onClick={onClickMaterialInfo} >&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}} >품목 리스트</font>&nbsp;&nbsp;&nbsp;&nbsp; <Link as='/DealerMaterialInfo' href={{pathname:'/DealerMaterialInfo',query:{dealerCode:dealerCode,infocode:infocode,infoName:infoName}}}><Button type="primary"  style={{borderRadius:'8px'}}><font style={{paddingRight:'0.7%',fontFamily:'jua'}}>품목상세정보</font></Button></Link></p>
+        <p onClick={onClickMaterialInfo} >&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}} >취급 품목 리스트</font>&nbsp;&nbsp;&nbsp;&nbsp; <Link as='/DealerMaterialInfo' href={{pathname:'/DealerMaterialInfo',query:{dealerCode:dealerCode,infocode:infocode,infoName:infoName}}}><Button type="primary"  style={{borderRadius:'8px'}}><font style={{paddingRight:'0.7%',fontFamily:'jua'}}>품목상세정보</font></Button></Link></p>
         <p onClick={onClickMaterialInfo} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{orderCount} 가지</font></p>
         <hr style={{opacity:'0.4'}}/>
 

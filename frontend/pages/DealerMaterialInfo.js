@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback,useRef } from 'react';
 import { Modal, Button, Col,Row,Input,Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image'
 const { Search } = Input;
 import 
     {DEALERMATERIALINFO_REQUEST,} 
@@ -39,8 +40,8 @@ const DealerMaterialInfo =()=>{
     const [dimension, setDimension] = useState(''); 
     const refMaterialName = useRef(); 
     const refDimension = useRef(); 
+    const refImage = useRef(); 
 
- 
     //첫 로딩 시.. 
     useEffect(()=>{
         //구글 에드센스 광고
@@ -142,6 +143,24 @@ const DealerMaterialInfo =()=>{
         }
     }
 
+    //이미지 클릭 
+    const imgDetail = useCallback((fileName,bigsellerImage,materialName)=>{
+
+        let imgSrc; 
+        let queryString;
+
+        imgSrc = fileName.length > 0 
+        ? `https://www.hubpass.co.kr/asp/base/images/a${dealerCode}/${fileName}` 
+        : bigsellerImage.length > 0 
+        ? bigsellerImage 
+        : 'https://image.hubpass.co.kr:441/delivery.gif'
+
+        queryString=`?materialName=${materialName}&src=${imgSrc}`;   
+        router.push('/MaterialDetailImage'+queryString ,'/MaterialDetailImage');
+        
+    },[])
+    
+
     const abc = () =>{
       setVisible(false); 
 
@@ -182,7 +201,17 @@ const DealerMaterialInfo =()=>{
             {materialArray && materialArray.map((v,i)=>(
                 
                 <div className='divTableRow' style={{backgroundColor:materialArrayTopMaterial===v.materialCode ? "#d8d8d8":""}}>
-                    <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={'https://image.hubpass.co.kr:441/delivery.gif'}/></div></div>
+                    <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}} onClick={()=>imgDetail(v.fileName,v.bigsellerImage,v.materialName)}><Image src={v.fileName.length > 0 
+                                                                                                                       ? `https://www.hubpass.co.kr/asp/base/images/a${dealerCode}/${v.fileName}` 
+                                                                                                                       : v.bigsellerImage.length > 0 
+                                                                                                                       ? v.bigsellerImage 
+                                                                                                                       : 'https://image.hubpass.co.kr:441/delivery.gif'}
+                                                                                                                       
+                                                                                                                       alt="materials"
+                                                                                                                       width={80} height={60}
+                                                                                                                       layout='responsive'
+                                                                                                                       
+                                                                                                                       /></div></div>
                     <div className='divTableCell'>
                     <font style={{fontFamily:'Hanna',fontSize:'2.2vh'}}>
                     {v.materialName}
