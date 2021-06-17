@@ -48,6 +48,9 @@ const DealerDetailInfo =()=>{
     //     setBooleanValue((prev)=>!prev); 
     //   }
     
+    const [x,setX] =useState(''); 
+    const [y,setY] =useState(''); 
+
     const onClickMaterialInfo =()=>{
 
         let queryString = "?dealerCode="+dealerCode
@@ -80,8 +83,13 @@ const DealerDetailInfo =()=>{
                  map.setZoomable(false); //지도 확대 축소 차단 
                  map.setDraggable(false); //지도 그레그 이동 차단
 
+                 setX(result[0].x);
+                 setY(result[0].y); 
+                 
+
                 //지도 클릭 시..
-                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                    alert('지도 클릭');        
                     window.open(`https://map.kakao.com/link/map/${infoName},${result[0].y},${result[0].x}`);     
                 });
 
@@ -100,7 +108,11 @@ const DealerDetailInfo =()=>{
                 var infowindow = new kakao.maps.InfoWindow({
                     content: `<div style="width:150px;text-align:center;padding:6px 0;">${infoName}</div>`
                 });
+
+              
+
                 infowindow.open(map, marker);
+
         
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
@@ -161,7 +173,11 @@ const DealerDetailInfo =()=>{
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{address}</font></p>
      
         <div>
-        <div id="map" style={{width:'100%',height:'300px',zIndex:'1'}}></div>
+            <div id="map" style={{width:'100%',height:'300px'}} />
+                <a href={`https://map.kakao.com/link/map/${infoName},${y},${x}`} target='_blank'>
+                    {/*지도 위에서도 화면 드래그를 위한 장치 */}
+                    <div style={{position:'absolute',zIndex:1,top:0,bottom:0,left:0,right:0}} />
+                </a>
         </div>
         <br/>
         <p>
