@@ -174,10 +174,13 @@ const DealerDetailInfo =()=>{
      
         <div>
             <div id="map" style={{width:'100%',height:'300px'}} />
-                <a href={`https://map.kakao.com/link/map/${infoName},${y},${x}`} target='_blank'>
-                    {/*지도 위에서도 화면 드래그를 위한 장치 */}
-                    <div style={{position:'absolute',zIndex:1,top:0,bottom:0,left:0,right:0}} />
-                </a>
+            
+            {/*지도 위에서도 화면 드래그를 위한 장치 */}
+            {/* 
+            <a href={`https://map.kakao.com/link/map/${infoName},${y},${x}`} target='_blank'>
+                <div style={{position:'absolute',zIndex:1,top:0,bottom:0,left:0,right:0,border:'1px solid'}} />
+            </a>
+            */}
         </div>
         <br/>
         <p>
