@@ -12,7 +12,7 @@ const nextConfig = withBundleAnalyzer({
      //배포할 파일들을 gzip으로 압축해준는 장치 
 
     images: {
-      domains: ['www.hubpass.co.kr','image.hubpass.co.kr'],
+      domains: ['www.hubpass.co.kr','image.hubpass.co.kr','bigseller.hubmeka.co.kr'],
   
     },
     //next/image 경로 설정 

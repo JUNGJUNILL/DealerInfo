@@ -161,7 +161,7 @@ const DealerDetailInfo =()=>{
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{address}</font></p>
      
         <div>
-        <div id="map" style={{width:'100%',height:'300px'}}></div>
+        <div id="map" style={{width:'100%',height:'300px',zIndex:'1'}}></div>
         </div>
         <br/>
         <p>
