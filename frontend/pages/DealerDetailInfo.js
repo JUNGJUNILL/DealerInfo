@@ -171,17 +171,16 @@ const DealerDetailInfo =()=>{
         {/*주소*/}
         <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>주소</font></p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{address}</font></p>
-     
-        <div>
-            <div id="map" style={{width:'100%',height:'300px'}} />
-            
-            {/*지도 위에서도 화면 드래그를 위한 장치 */}
-            {/* 
+        
+        {/*카카오 지도 */}
+        <div style={{position:'relative'}}>
+            <div id="map" style={{width:'100%',height:'300px',position:'relative'}} />
             <a href={`https://map.kakao.com/link/map/${infoName},${y},${x}`} target='_blank'>
-                <div style={{position:'absolute',zIndex:1,top:0,bottom:0,left:0,right:0,border:'1px solid'}} />
+                 {/*지도 위에서도 화면 드래그를 위한 장치 (position:'relative' 해 놓은 것도)*/}
+                <div style={{position:'absolute',zIndex:1,top:0,bottom:0,left:0,right:0}} />
             </a>
-            */}
         </div>
+
         <br/>
         <p>
           <ins className="adsbygoogle"
