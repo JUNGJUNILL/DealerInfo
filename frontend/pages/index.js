@@ -7,10 +7,13 @@ import wrapper from '../store/configureStore';
 import {localDataList}from '../API/localData'; 
 import axios from 'axios';
 import {useRouter} from 'next/router'; 
+import Image from 'next/image'
 
 import 
     {DEALERINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
+
+import {END} from 'redux-saga'; 
 
 
 const DealerInfo = ({clientIp,clientRegion}) =>{
@@ -21,7 +24,7 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
          reginValue, 
          PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
   const [startValue,setStartValue] = useState(0); 
-  const [endValue,  setEndValue] = useState(50);
+  const [endValue,  setEndValue] = useState(20);
   const [clickCount , setClickCount] =useState(1); 
   const router = useRouter(); 
 
@@ -29,16 +32,18 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
   //에널리틱스 
   useEffect(()=>{
+
+    //구글 광고
     if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
 
-    dispatch({
-      type:DEALERINFO_REQUEST,
-          data:{clientIp:clientIp,
-          init:'initLoad',
-          start:0,
-          end:50
-        },
-    });
+    // dispatch({
+    //   type:DEALERINFO_REQUEST,
+    //       data:{clientIp:clientIp,
+    //       init:'initLoad',
+    //       start:0,
+    //       end:20
+    //     },
+    // });
   },[]); 
 
     
@@ -220,8 +225,18 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
             {dealerInfoList && dealerInfoList.map((v,i)=>(
              //'https://image.hubpass.co.kr:441/delivery.gif ' 
                 <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
-                    <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><img src={i<=2?`https://image.hubpass.co.kr:441/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`:
-                                                                                                                   v.storeCount === '0'? 'https://image.hubpass.co.kr:441/noorder.gif' :'https://image.hubpass.co.kr:441/delivery.gif'}/></div></div>
+                    <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><Image src={i<=2
+                                                                                                                        ?`https://image.hubpass.co.kr:441/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`
+                                                                                                                        :v.storeCount === '0'
+                                                                                                                        ? 'https://image.hubpass.co.kr:441/noorder.gif' 
+                                                                                                                        :'https://image.hubpass.co.kr:441/delivery.gif'
+
+                                                                                                                  }
+                                                                                                                  
+                                                                                                                  alt="materials"
+                                                                                                                  width={80} height={60}
+                                                                                                                  layout='responsive'
+                                                                                                                  /></div></div>
                                                                                                                    {/*v.storeCount === '0'? faker.random.image() :faker.random.image()}/></div></div>*/}
                     
                     <div className='divTableCell' >
@@ -263,24 +278,35 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
       const clientRegion = apiResult.data.region || 'Seoul' || null; 
 
 
+      //서버사이드렌더링 페이지 캐싱하기 위한 장치
+      //서버사이드렌더링 페이지로 뒤로가기 시 캐싱이 안되서 새로 로드 될 때 상당히 느린 문제를 해결함. 
+      //하지만 해당 위치의 스크롤 이동까지는 구현하지 못함
+      if(context.res){ 
 
-      // context.store.dispatch({
-      //   type:DEALERINFO_REQUEST,
-      //       data:{clientIp:clientIp,
-      //       init:'initLoad',
-      //       start:0,
-      //       end:100
-      //     },
-      // });
+        context.res.setHeader(
+          'Cache-Control',
+          'public, max-age=180, s-maxage=180, stale-while-revalidate=180'
+        )
+
+        }
+
+      context.store.dispatch({
+        type:DEALERINFO_REQUEST,
+            data:{clientIp:clientIp,
+            init:'initLoad',
+            start:0,
+            end:20
+          },
+      });
+
   
-    
       // 서버에서 saga에서 SUCCESS 되서 데이터가 완전히 다 만들어진 
       // 상태로 화면이 그려주기 위한 장치 
     
       // REQUEST 해서 SUCCESS 될 때까지 기다려주기 위한 장치
       // 이걸 빼면 그냥 REQUEST 요청만 완료된 상태가 되어버리기 때문에 데이터가 나오지 않을 것이다.
-      // context.store.dispatch(END); 
-      // await context.store.sagaTask.toPromise(); 
+      context.store.dispatch(END); 
+      await context.store.sagaTask.toPromise(); 
 
 
       

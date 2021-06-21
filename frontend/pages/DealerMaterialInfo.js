@@ -7,6 +7,10 @@ import
     {DEALERMATERIALINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
 
+import 
+    MaterialImage
+from '../components/MaterialImage'
+
 
 import {useRouter} from 'next/router'; 
 
@@ -38,9 +42,14 @@ const DealerMaterialInfo =()=>{
     const [clickCount , setClickCount] =useState(1); 
     const [materialName,setMaterialName]= useState('');
     const [dimension, setDimension] = useState(''); 
+    const [imageMaterialName,setImageMaterialName] = useState(''); 
+    const [materialImageSrc,setMaterialImageSrc] = useState(''); 
+    const [imageModalFlag, setImageModalFlag] = useState(false); 
     const refMaterialName = useRef(); 
     const refDimension = useRef(); 
     const refImage = useRef(); 
+
+    
 
     //첫 로딩 시.. 
     useEffect(()=>{
@@ -102,7 +111,7 @@ const DealerMaterialInfo =()=>{
     const blank_pattern = /^\s+|\s+&/g; 
     //검색
     const onClickMaterial = useCallback(()=>{
-       // return alert('준비 중 입니다.');
+
         if(materialName.length === 0 || materialName.replace(blank_pattern,'')===""){
             refMaterialName.current.focus();  
             alert('검색 시 품명은 필수입니다.'); 
@@ -138,6 +147,7 @@ const DealerMaterialInfo =()=>{
 
     //인풋창에서 enter 눌렀을 시(pc,mobile 동일)
     const onKeyPressMaterialSearch = (e) =>{
+        
         if(e.key==='Enter'){
             onClickMaterial(); 
         }
@@ -146,19 +156,25 @@ const DealerMaterialInfo =()=>{
     //이미지 클릭 
     const imgDetail = useCallback((fileName,bigsellerImage,materialName)=>{
 
+        setImageModalFlag(true); 
+        setImageMaterialName(materialName); 
         let imgSrc; 
-        let queryString;
-
         imgSrc = fileName.length > 0 
         ? `https://www.hubpass.co.kr/asp/base/images/a${dealerCode}/${fileName}` 
         : bigsellerImage.length > 0 
         ? bigsellerImage 
         : 'https://image.hubpass.co.kr:441/delivery.gif'
 
-        queryString=`?materialName=${materialName}&src=${imgSrc}`;   
-        router.push('/MaterialDetailImage'+queryString ,'/MaterialDetailImage');
+        setMaterialImageSrc(imgSrc); 
         
-    },[])
+
+        
+    },[imageMaterialName,materialImageSrc])
+
+    const chageBooleanValue = () =>{
+        setImageModalFlag((prev)=>!prev);
+        
+    }
     
 
     const abc = () =>{
@@ -170,7 +186,11 @@ const DealerMaterialInfo =()=>{
 
     return (
         <div>
+
+    
         <Row>  
+        
+         {imageModalFlag && <MaterialImage visible={imageModalFlag} func={chageBooleanValue} materialName={imageMaterialName} src={materialImageSrc}/>}
         
         <Modal
         title={`${infoName}-품목 리스트`}
