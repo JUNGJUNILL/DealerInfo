@@ -159,7 +159,7 @@ const DealerMaterialInfo =()=>{
         setImageMaterialName(materialName); 
         let imgSrc; 
         imgSrc = fileName.length > 0 
-        ? `https://www.hubpass.co.kr/externa/images/a${dealerCode}/${fileName}` 
+        ? `https://www.hubpass.co.kr/external/images/a${dealerCode}/${fileName}` 
         : bigsellerImage.length > 0 
         ? bigsellerImage 
         : 'https://image.hubpass.co.kr:441/delivery.gif'
