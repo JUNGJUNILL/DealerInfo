@@ -222,7 +222,7 @@ const DealerMaterialInfo =()=>{
                 
                 <div className='divTableRow' style={{backgroundColor:materialArrayTopMaterial===v.materialCode ? "#d8d8d8":""}}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}} onClick={()=>imgDetail(v.fileName,v.bigsellerImage,v.materialName)}><Image src={v.fileName.length > 0 
-                                                                                                                       ? `https://www.hubpass.co.kr/external/images/images/a${dealerCode}/${v.fileName}` 
+                                                                                                                       ? `https://www.hubpass.co.kr/external/images/a${dealerCode}/${v.fileName}` 
                                                                                                                        : v.bigsellerImage.length > 0 
                                                                                                                        ? v.bigsellerImage 
                                                                                                                        : 'https://image.hubpass.co.kr:441/delivery.gif'}
