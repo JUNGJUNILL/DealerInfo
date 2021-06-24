@@ -16,7 +16,7 @@ from '../reducers/dealerInfoListReducer';
 import {END} from 'redux-saga'; 
 
 
-const DealerInfo = ({clientIp,clientRegion}) =>{
+const DealerInfo = ({clientRegion}) =>{
 
   const dispatch              = useDispatch(); 
   const {dealerInfoList, 
@@ -105,7 +105,6 @@ const DealerInfo = ({clientIp,clientRegion}) =>{
 
 
   const [boleanValue ,setBooleanValue]= useState(false); 
-  const [getDealerInfo,setDealerInfo] = useState(null); 
 
    const onClickDetailInfo =(i)=>() =>{
 
@@ -281,14 +280,15 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
       //서버사이드렌더링 페이지 캐싱하기 위한 장치
       //서버사이드렌더링 페이지로 뒤로가기 시 캐싱이 안되서 새로 로드 될 때 상당히 느린 문제를 해결함. 
       //하지만 해당 위치의 스크롤 이동까지는 구현하지 못함
-      if(context.res){ 
-
+      // if(context.res){ 
+      // }
         context.res.setHeader(
           'Cache-Control',
           'public, max-age=180, s-maxage=180, stale-while-revalidate=180'
         )
+    
 
-        }
+      
 
       context.store.dispatch({
         type:DEALERINFO_REQUEST,
@@ -298,6 +298,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
             end:20
           },
       });
+    
 
   
       // 서버에서 saga에서 SUCCESS 되서 데이터가 완전히 다 만들어진 
@@ -308,10 +309,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
       context.store.dispatch(END); 
       await context.store.sagaTask.toPromise(); 
 
-
       
       return {
-        props: {clientIp,clientRegion}, // will be passed to the page component as props
+        props: {clientRegion}, // will be passed to the page component as props
       } 
   
   }catch(e){

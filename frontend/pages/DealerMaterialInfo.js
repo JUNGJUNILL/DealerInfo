@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback,useRef } from 'react';
-import { Modal, Button, Col,Row,Input,Space } from 'antd';
+import { Modal, Button,Row,Input,Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image'
-const { Search } = Input;
 import 
     {DEALERMATERIALINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
@@ -160,7 +159,7 @@ const DealerMaterialInfo =()=>{
         setImageMaterialName(materialName); 
         let imgSrc; 
         imgSrc = fileName.length > 0 
-        ? `https://www.hubpass.co.kr/asp/base/images/a${dealerCode}/${fileName}` 
+        ? `https://www.hubpass.co.kr/externa/images/a${dealerCode}/${fileName}` 
         : bigsellerImage.length > 0 
         ? bigsellerImage 
         : 'https://image.hubpass.co.kr:441/delivery.gif'

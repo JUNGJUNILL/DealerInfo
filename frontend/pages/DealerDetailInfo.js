@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button,Modal } from 'antd';
+import { Button } from 'antd';
 import Link from 'next/link';
 
 import {useRouter} from 'next/router'; 
-import DealerMaterialInfoComponent from '../components/DealerMaterialInfoComponent'
 
 
 
