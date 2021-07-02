@@ -135,7 +135,7 @@ const DealerInfo = ({clientRegion}) =>{
                     +"&ceoName="+ceoNameEdit.join('')
 
 
-    router.push('/DealerDetailInfo'+queryString ,'/DealerDetailInfo', scroll=false);
+    router.push('/DealerDetailInfo'+queryString ,'/DealerDetailInfo');
     setBooleanValue((value)=>!value);; 
 
   }
