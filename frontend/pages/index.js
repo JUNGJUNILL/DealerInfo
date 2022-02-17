@@ -225,10 +225,10 @@ const DealerInfo = ({clientRegion}) =>{
              //'https://image.hubpass.co.kr:441/delivery.gif ' 
                 <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><Image src={i<=2
-                                                                                                                        ?`https://image.hubpass.co.kr:441/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`
+                                                                                                                        ?`https://www.hubpass.co.kr/external/images/a1001/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`
                                                                                                                         :v.storeCount === '0'
-                                                                                                                        ? 'https://image.hubpass.co.kr:441/noorder.gif' 
-                                                                                                                        :'https://image.hubpass.co.kr:441/delivery.gif'
+                                                                                                                        ? 'https://www.hubpass.co.kr/external/images/a1001/noorder.gif' 
+                                                                                                                        :'https://www.hubpass.co.kr/external/images/a1001/delivery.gif'
 
                                                                                                                   }
                                                                                                                   
