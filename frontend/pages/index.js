@@ -1,6 +1,7 @@
 import React , {useState,useEffect,useCallback}from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Select ,Button} from 'antd';
+import {useCookies} from 'react-cookie'
 const { Option } = Select;
 
 import wrapper from '../store/configureStore';
@@ -28,7 +29,8 @@ const DealerInfo = ({clientRegion}) =>{
   const [clickCount , setClickCount] =useState(1); 
   const router = useRouter(); 
 
-
+  const [startCookie,setStartCookie] = useCookies('startCookie'); 
+  const [endCookie,setEndCookie] = useCookies('endCookie'); 
 
   //에널리틱스 
   useEffect(()=>{
@@ -99,9 +101,6 @@ const DealerInfo = ({clientRegion}) =>{
   }
 
   //하위 지역 select 변경 시 action 
-  const onChangeSubLocal = (value) =>{
-    setSubLocalValue(value); 
-  }
 
 
   const [boleanValue ,setBooleanValue]= useState(false); 
@@ -142,16 +141,18 @@ const DealerInfo = ({clientRegion}) =>{
 
   //자식 컴포넌트의 변수를 부모 컴포넌트로 가져오는 예시
   //https://velog.io/@breeeeze/react-%EC%9E%90%EC%8B%9D%EC%97%90%EC%84%9C-%EB%B6%80%EB%AA%A8%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC%ED%95%98%EA%B8%B0
-  const chageBooleanValue = () =>{
-    setBooleanValue((prev)=>!prev); 
-  }
 
 
   //더 보기 버튼 클릭 
   const onClickMore = useCallback(()=>{
 
     setClickCount(prev=>prev+1);
- 
+    setStartCookie('startCookie', 100, {maxAge:2000});
+
+    //더 보기를 눌렀다는 소리...
+    if(clickCount>1){
+
+    }
     /*
         50~100        처음 더보기          50 ~ 50
       
@@ -286,6 +287,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
           'Cache-Control',
           'public, max-age=100, s-maxage=100, stale-while-revalidate=100'
         )
+
+        console.log('context.res.req',context.req); 
     
 
       
