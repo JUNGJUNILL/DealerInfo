@@ -284,7 +284,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
       // }
         context.res.setHeader(
           'Cache-Control',
-          'public, max-age=180, s-maxage=180, stale-while-revalidate=180'
+          'public, max-age=100, s-maxage=100, stale-while-revalidate=100'
         )
     
 
