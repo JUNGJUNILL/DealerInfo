@@ -1,6 +1,6 @@
 import React , {useState,useEffect,useCallback}from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Select ,Button} from 'antd';
+import { Select ,Button,Modal} from 'antd';
 import {useCookies} from 'react-cookie'
 const { Option } = Select;
 
@@ -15,6 +15,7 @@ import
 from '../reducers/dealerInfoListReducer'; 
 
 import {END} from 'redux-saga'; 
+import { route } from 'next/dist/next-server/server/router';
 
 
 const DealerInfo = ({clientRegion}) =>{
@@ -29,8 +30,7 @@ const DealerInfo = ({clientRegion}) =>{
   const [clickCount , setClickCount] =useState(1); 
   const router = useRouter(); 
 
-  const [startCookie,setStartCookie] = useCookies('startCookie'); 
-  const [endCookie,setEndCookie] = useCookies('endCookie'); 
+
 
   //에널리틱스 
   useEffect(()=>{
@@ -38,19 +38,19 @@ const DealerInfo = ({clientRegion}) =>{
     //구글 광고
     if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
 
-    // dispatch({
-    //   type:DEALERINFO_REQUEST,
-    //       data:{clientIp:clientIp,
-    //       init:'initLoad',
-    //       start:0,
-    //       end:20
-    //     },
-    // });
+    dispatch({
+      type:DEALERINFO_REQUEST,
+          data:{clientIp:'36.39.49.234',
+          init:'initLoad',
+          start:0,
+          end:20
+        },
+    });
+
+
   },[]); 
 
     
-
-
 
 
   //광역시, 도 list
@@ -147,12 +147,7 @@ const DealerInfo = ({clientRegion}) =>{
   const onClickMore = useCallback(()=>{
 
     setClickCount(prev=>prev+1);
-    setStartCookie('startCookie', 100, {maxAge:2000});
 
-    //더 보기를 눌렀다는 소리...
-    if(clickCount>1){
-
-    }
     /*
         50~100        처음 더보기          50 ~ 50
       
@@ -171,10 +166,39 @@ const DealerInfo = ({clientRegion}) =>{
  
   },[clickCount,endValue,reginValue]); 
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    router.push('/?modal=true');
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    router.back();
+  };
+
+  const handleCancel = () => {
+    router.back();
+    setIsModalVisible(false);
+  };
+
 
 
     return (
         <div>
+
+        {router.query.modal==='true' 
+            ?
+               <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} >
+               <p>Some contents...</p>
+               <p>Some contents...</p>
+               <p>Some contents...</p>
+             </Modal>
+            :
+            ""
+        }
+ 
+ 
         
         <div style={{width:'100%',textAlign:"center"}}>
             <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사</font> <br/>
@@ -224,6 +248,7 @@ const DealerInfo = ({clientRegion}) =>{
          <div className='divTable'>
             {dealerInfoList && dealerInfoList.map((v,i)=>(
              //'https://image.hubpass.co.kr:441/delivery.gif ' 
+             //onClickDetailInfo(i)     showModal    
                 <div className='divTableRow' key={i} onClick={onClickDetailInfo(i)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><Image src={i<=2
                                                                                                                         ?`https://www.hubpass.co.kr/external/images/a1001/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`
@@ -268,11 +293,11 @@ const DealerInfo = ({clientRegion}) =>{
     )
 
 }
-
+/*
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
 
   try{
-
+    console.log('req=>',context.req);
       const clientIp =process.env.NODE_ENV === 'production' ? context.req.headers['x-real-ip'] || context.req.connection.remoteAddress : '36.39.49.234';
       const apiResult =await axios.get(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`);
       const clientRegion = apiResult.data.region || 'Seoul' || null; 
@@ -283,14 +308,16 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
       //하지만 해당 위치의 스크롤 이동까지는 구현하지 못함
       // if(context.res){ 
       // }
+
         context.res.setHeader(
           'Cache-Control',
           'public, max-age=100, s-maxage=100, stale-while-revalidate=100'
         )
 
-        console.log('context.res.req',context.req); 
+//        console.log('context.res.req',context.req); 
     
 
+        
       
 
       context.store.dispatch({
@@ -324,6 +351,5 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   }
 
   });
-
-
+*/
 export default DealerInfo;

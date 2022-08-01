@@ -16,7 +16,7 @@ export const getDealerInfoAPI = async (actionData) =>{
     let reginValue; 
    
     if(init){
-      
+      console.log('init=',init);
       const request = await fetch(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`)
       const json = await request.json(); 
       reginValue = json.region;
