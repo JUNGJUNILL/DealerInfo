@@ -20,6 +20,12 @@ const nextConfig = withBundleAnalyzer({
     future: {
       webpack5: true,
     },
+
+    experimental: {
+      scrollRestoration: true,
+    },
+
+
     //웹팩 5 사용 
   
     webpack(config, { webpack }) {

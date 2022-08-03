@@ -2,7 +2,7 @@
   "name": "learn-starter",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+  "scripts": { 
     "dev": "next -p 3002",
     "build": "cross-env ANALYZE=true NODE_ENV=production next build",
     "start": "cross-env NODE_ENV=production next start -p 80"
@@ -12,6 +12,7 @@
     "@next/bundle-analyzer": "^9.4.4",
     "antd": "^4.4.0",
     "axios": "^0.21.1",
+    "cacheable-response": "^2.8.1",
     "cross-env": "^7.0.2",
     "gray-matter": "^4.0.2",
     "iconv-lite": "^0.6.3",

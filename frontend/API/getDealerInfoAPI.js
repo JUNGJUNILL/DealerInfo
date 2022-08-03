@@ -5,34 +5,19 @@ export const getDealerInfoAPI = async (actionData) =>{
   try{
     const {
 
-      clientIp, 
-      init,
+      initlocal,
       start,
       end
     
     } = actionData;
     
     let goUrl;
-    let reginValue; 
-   
-    if(init){
-      console.log('init=',init);
-      const request = await fetch(`https://ipinfo.io/${clientIp}?token=ad6b444b39c31e`)
-      const json = await request.json(); 
-      reginValue = json.region;
-      
-      goUrl=`https://www.hubpass.co.kr/asp/standard/DealerInfo03.jsp?region=${json.region}&start=${start}&end=${end}`;
+      goUrl=`https://www.hubpass.co.kr/asp/standard/DealerInfo03.jsp?region=${initlocal}&start=${start}&end=${end}`;
 
-    }else{
-
-      reginValue = clientIp;
-      goUrl=`https://www.hubpass.co.kr/asp/standard/DealerInfo03.jsp?region=${clientIp}&start=${start}&end=${end}`;
-    }
     const response = await fetch(goUrl);
     const data = await response.json(); 
     return {
-            result:data,
-            region:reginValue
+            result:data
           }; 
 
   }catch(e){
