@@ -18,7 +18,7 @@ import {END} from 'redux-saga';
 
 
 
-const DealerInfoListComponent = ({count})=>{
+const DealerInfoListComponent = ({clickCheck})=>{
 
     const dispatch              = useDispatch(); 
     const {dealerInfoList, 
@@ -29,13 +29,14 @@ const DealerInfoListComponent = ({count})=>{
     const [endValue,  setEndValue] = useState(20);
     const [clickCount , setClickCount] =useState(1); 
     const router = useRouter(); 
-    const [cnt , setCnt] =useState(count); 
-    const [init,setInit] = useState(false);
+    const [check , setCheck] = useState(clickCheck); 
 
-
+      /*
     useEffect(()=>{
 
-    if(count===1){
+      alert(check);
+ 
+      if(check){
         dispatch({
             type:DEALERINFO_REQUEST,
                 data:{
@@ -48,8 +49,8 @@ const DealerInfoListComponent = ({count})=>{
     }
 
 
-    },[count]);
-
+    },[check]);
+    */
 
   //광역시, 도 list
   const mainLocal = localDataList.filter((v,i,array)=>{
@@ -66,19 +67,12 @@ const DealerInfoListComponent = ({count})=>{
 
     try{
     setClickCount(1); 
-    let changeSubLocalList = localDataList.filter((v,i,array)=>{
-        if(v.regionName === value){
-            return array;
-        }
-    }); 
-
-    setSubLocal([...changeSubLocalList]); 
     
     dispatch({
       type:DEALERINFO_REQUEST, 
       data:{
             initlocal:value,
-            start:startValue,
+            start:0,
             end:endValue,
             changeLocalValue:true,
       },
@@ -140,8 +134,8 @@ const onClickDetailInfo =(i)=>() =>{
         */
         dispatch({
           type:DEALERINFO_REQUEST, 
-          data:{clientIp:reginValue,
-                init:'',
+          data:{
+                initlocal:reginValue,
                 start:endValue*clickCount,
                 end:endValue
           },
@@ -152,6 +146,7 @@ const onClickDetailInfo =(i)=>() =>{
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
     router.push('/?modal=true');
+    setCheck(false);
     setIsModalVisible(true);
   };
 
@@ -174,13 +169,12 @@ const onClickDetailInfo =(i)=>() =>{
 
         <div>
  
-
+          <input type="text" value={check} />
 
             <div style={{width:'100%',textAlign:"center"}}>
                         <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사사</font> <br/>
                         <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(매출액이 높은 순으로 정렬)</font>
             </div>
-            <input type="text" value={count} />
 
             <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
                 <font style={{fontFamily:'jua',fontSize:'2.2vh'}}>지역선택 :</font> &nbsp; 

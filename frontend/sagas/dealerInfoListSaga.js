@@ -32,8 +32,7 @@ function* dealerInfoList(action){
     try{
         //백엔드 서버 사용 시 
         //const result =yield call(dealerInfoListAPI,action.data); 
-        const {result} =yield call(getDealerInfoAPI,action.data); 
-        const {region} =yield call(getClientIpAPI,action.data); 
+        const {result,region} =yield call(getDealerInfoAPI,action.data); 
         const {changeLocalValue} = yield action.data;
         //const newArray = result.map(v=>v={...v,...{ceoName:'헬로우'}});
         yield  put({
