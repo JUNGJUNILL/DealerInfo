@@ -18,39 +18,18 @@ import {END} from 'redux-saga';
 
 
 
-const DealerInfoListComponent = ({clickCheck})=>{
+const DealerInfoListComponent = ()=>{
 
     const dispatch              = useDispatch(); 
     const {dealerInfoList, 
-        btnLoading, 
-        reginValue, 
-        PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
+          btnLoading, 
+          reginValue, 
+          PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
     const [startValue,setStartValue] = useState(0); 
     const [endValue,  setEndValue] = useState(20);
     const [clickCount , setClickCount] =useState(1); 
     const router = useRouter(); 
-    const [check , setCheck] = useState(clickCheck); 
 
-      /*
-    useEffect(()=>{
-
-      alert(check);
- 
-      if(check){
-        dispatch({
-            type:DEALERINFO_REQUEST,
-                data:{
-                initlocal : 'Seoul',
-                start:0,
-                end:endValue
-              },
-          });
-
-    }
-
-
-    },[check]);
-    */
 
   //광역시, 도 list
   const mainLocal = localDataList.filter((v,i,array)=>{
@@ -143,33 +122,12 @@ const onClickDetailInfo =(i)=>() =>{
      
       },[clickCount,endValue,reginValue]); 
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const showModal = () => {
-    router.push('/?modal=true');
-    setCheck(false);
-    setIsModalVisible(true);
+  const getDetailDealerIno =(dealerCode)=>() => {
+    router.push(`?modal=true&dealerCode=${dealerCode}`)
   };
-
-  const handleOk = () => {
-    router.back();
-  };
-
-  const handleCancel = () => {
-    router.back();
-    setIsModalVisible(false);
-  };
-
-
-
-
 
     return (
-
-
-
         <div>
- 
-          <input type="text" value={check} />
 
             <div style={{width:'100%',textAlign:"center"}}>
                         <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사사</font> <br/>
@@ -206,7 +164,7 @@ const onClickDetailInfo =(i)=>() =>{
             {dealerInfoList && dealerInfoList.map((v,i)=>(
              //'https://image.hubpass.co.kr:441/delivery.gif ' 
              //onClickDetailInfo(i)     showModal    
-                <div className='divTableRow' key={i} onClick={showModal}>
+                <div className='divTableRow' key={i} onClick={getDetailDealerIno(dealerInfoList[i].dealerCode)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><Image src={i<=2
                                                                                                                         ?`https://www.hubpass.co.kr/external/images/a1001/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`
                                                                                                                         :v.storeCount === '0'

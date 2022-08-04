@@ -7,6 +7,8 @@ import wrapper from '../store/configureStore';
 import {localDataList}from '../API/localData'; 
 import TestComp from '../components/TestComp';
 import DealerInfoListComponent from '../components/DealerInfoListComponent'
+import DealerDetailInfoComponent from '../components/DealerDetailInfoComponent'
+
 
 import axios from 'axios';
 import {useRouter} from 'next/router'; 
@@ -19,19 +21,11 @@ from '../reducers/dealerInfoListReducer';
 import {END} from 'redux-saga'; 
 
 
-const DealerInfo = ({clientRegion}) =>{
+const DealerInfo = () =>{
 
   const dispatch              = useDispatch(); 
-  
-  const {dealerInfoList, 
-         btnLoading, 
-         reginValue, 
-         PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
-  const [startValue,setStartValue] = useState(0); 
-  const [endValue,  setEndValue] = useState(20);
   const router = useRouter(); 
-
-
+  const {dealerInfoList} = useSelector((state)=>state.dealerInfoListReducer); 
 
   useEffect(()=>{
     //구글 광고
@@ -41,7 +35,7 @@ const DealerInfo = ({clientRegion}) =>{
           data:{
           initValue : true,
           start:0,
-          end:endValue
+          end:20
         },
     });
     
@@ -68,44 +62,13 @@ const DealerInfo = ({clientRegion}) =>{
 
     return (
         <div>
-      {/* 
-        {router.query.modal==='true' 
-            ?
-               <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} >
-               <p>Some contents...</p>
-               <p>Some contents...</p>
-               <p>Some contents...</p>
-             </Modal>
-            :
-            ""
-        }
-     */}
-       
-
-        {router.query.modal==='true'
-        ?<p>안녕하세요!</p>
-        :<DealerInfoListComponent region={clientRegion}/>
-       }
- 
-
-          <div className='divTableAds' >
-            <div className='divTableAdsRow' >
-              <div className='divTableAdsCell'>
-                  <ins className="adsbygoogle"
-                  style={{display:'block', textAlign:'center'}}
-                  data-ad-layout={"in-article"}
-                  data-ad-format={"fluid"}
-                  data-ad-client={"ca-pub-9160341796142118"}
-                  data-ad-slot={"5405263289"}></ins>
-              </div>
-            </div>
-          </div>
-
   
 
-              
-          
-      
+        {router.query.modal==='true'
+        ?<DealerDetailInfoComponent dealerInfoList={dealerInfoList} dealerCode={router.query.dealerCode}/>
+        :<DealerInfoListComponent />
+       }
+     
         </div>
     )
 
