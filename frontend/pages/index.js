@@ -26,19 +26,28 @@ const DealerInfo = () =>{
   const dispatch              = useDispatch(); 
   const router = useRouter(); 
   const {dealerInfoList} = useSelector((state)=>state.dealerInfoListReducer); 
+  const [init,setInit] = useState(true);
 
   useEffect(()=>{
+    
     //구글 광고
     if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
-    dispatch({
-      type:DEALERINFO_REQUEST,
-          data:{
-          initValue : true,
-          start:0,
-          end:20
-        },
-    });
+
+  },[])
+
+  useEffect(()=>{
     
+      dispatch({
+        type:DEALERINFO_REQUEST,
+            data:{
+            initValue : true,
+            start:0,
+            end:20
+          },
+      });
+      
+    
+ 
   },[])
 
 /*
@@ -54,6 +63,10 @@ const DealerInfo = () =>{
 
 */
   
+const parentFunc = () =>{
+ 
+  alert(`parent func =${init}`);
+}
 
 
 
@@ -63,9 +76,9 @@ const DealerInfo = () =>{
     return (
         <div>
   
-
+        <input type="text" value={init} />
         {router.query.modal==='true'
-        ?<DealerDetailInfoComponent dealerInfoList={dealerInfoList} dealerCode={router.query.dealerCode}/>
+        ?<DealerDetailInfoComponent dealerInfoList={dealerInfoList} dealerCode={router.query.dealerCode} parentFunc={parentFunc} />
         :<DealerInfoListComponent />
        }
      

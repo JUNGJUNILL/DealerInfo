@@ -49,7 +49,7 @@ const DealerMaterialInfo =()=>{
     const refImage = useRef(); 
 
     
-
+/*
     //첫 로딩 시.. 
     useEffect(()=>{
         //구글 에드센스 광고
@@ -72,7 +72,7 @@ const DealerMaterialInfo =()=>{
                
 
     },[]); 
-
+*/
     //자식 컴포넌트에서 부모 변수 컨트롤하기
     const changeVisibleValue =()=>{
         //func(true); 
