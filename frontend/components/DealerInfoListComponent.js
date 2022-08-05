@@ -4,16 +4,15 @@ import { Select ,Button,Modal} from 'antd';
 const { Option } = Select;
 
 import {localDataList}from '../API/localData'; 
-
-import axios from 'axios';
 import {useRouter} from 'next/router'; 
 import Image from 'next/image'
+import noimages from '/public/noimages.gif'
+
 
 import 
     {DEALERINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
 
-import {END} from 'redux-saga'; 
 
 
 
@@ -25,7 +24,6 @@ const DealerInfoListComponent = ()=>{
           btnLoading, 
           reginValue, 
           PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
-    const [startValue,setStartValue] = useState(0); 
     const [endValue,  setEndValue] = useState(20);
     const [clickCount , setClickCount] =useState(1); 
     const router = useRouter(); 
@@ -62,41 +60,10 @@ const DealerInfoListComponent = ()=>{
   }
 }
 
-//유통사 상세정보
-const onClickDetailInfo =(i)=>() =>{
-    
-    //원단위 콤마 정규표현식
-    const pattern = /\d{1,3}(?=(\d{3})+(?!\d))/g; 
-
-    //빈칸제거 정규표현식 
-    const ceoNameEdit = dealerInfoList[i].ceoName.replace(/ /g,"").split(''); 
-          ceoNameEdit.splice(1,1,'*')
-
-    //setDealerInfo({...dealerInfoList[i]});
-    let queryString = "?dealerCode="+dealerInfoList[i].dealerCode
-                    +"&infocode="+dealerInfoList[i].infocode
-                    +"&infoName="+dealerInfoList[i].infoName
-                    +"&address="+dealerInfoList[i].address
-                    +"&item="+dealerInfoList[i].item
-                    +"&status="+dealerInfoList[i].status
-                    +"&infoPhone="+dealerInfoList[i].infoPhone
-                    +"&handphone="+dealerInfoList[i].handphone
-                    +"&storeCount="+dealerInfoList[i].storeCount
-                    +"&orderCount="+dealerInfoList[i].orderCount.replace(pattern,'$&,')
-                    +"&materialQtyCount="+dealerInfoList[i].materialQtyCount.replace(pattern,'$&,')
-                    +"&moneyTohangul="+dealerInfoList[i].moneyTohangul
-                    +"&money="+dealerInfoList[i].money
-                    +"&region="+dealerInfoList[i].region
-                    +"&stockinday="+dealerInfoList[i].stockinday
-                    +"&ceoName="+ceoNameEdit.join('')
-
-
-    router.push('/DealerDetailInfo'+queryString ,'/DealerDetailInfo');
-    //setBooleanValue((value)=>!value);; 
-
-  }
-
-
+    //유통사 상세정보
+    const getDetailDealerIno =(dealerCode,infocode)=>() => {
+      router.push(`?page=true&code=${dealerCode}&info=${infocode}`)
+    };
 
 
     //더 보기 버튼 클릭 
@@ -115,6 +82,7 @@ const onClickDetailInfo =(i)=>() =>{
           type:DEALERINFO_REQUEST, 
           data:{
                 initlocal:reginValue,
+                initValue:false,
                 start:endValue*clickCount,
                 end:endValue
           },
@@ -122,9 +90,7 @@ const onClickDetailInfo =(i)=>() =>{
      
       },[clickCount,endValue,reginValue]); 
 
-  const getDetailDealerIno =(dealerCode)=>() => {
-    router.push(`?modal=true&dealerCode=${dealerCode}`)
-  };
+
 
     return (
         <div>
@@ -164,7 +130,7 @@ const onClickDetailInfo =(i)=>() =>{
             {dealerInfoList && dealerInfoList.map((v,i)=>(
              //'https://image.hubpass.co.kr:441/delivery.gif ' 
              //onClickDetailInfo(i)     showModal    
-                <div className='divTableRow' key={i} onClick={getDetailDealerIno(dealerInfoList[i].dealerCode)}>
+                <div className='divTableRow' key={i} onClick={getDetailDealerIno(dealerInfoList[i].dealerCode,dealerInfoList[i].infocode)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><Image src={i<=2
                                                                                                                         ?`https://www.hubpass.co.kr/external/images/a1001/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`
                                                                                                                         :v.storeCount === '0'
@@ -173,7 +139,7 @@ const onClickDetailInfo =(i)=>() =>{
 
                                                                                                                   }
                                                                                                                   
-                                                                                                                  alt="materials"
+                                                                                                                  alt={noimages}
                                                                                                                   width={80} height={60}
                                                                                                                   layout='responsive'
                                                                                                                   /></div></div>

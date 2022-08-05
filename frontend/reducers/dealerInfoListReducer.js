@@ -23,7 +23,11 @@ export const  initialState = {
     dealerCode:'',
 
     prevInfoCode:'',
-    infoCode:''
+    infoCode:'',
+
+
+    //유통사 품목 정보 클릭 
+    materialInfoClick:false,
 
 
 }
@@ -38,6 +42,9 @@ export const DEALERINFO_FAILURE='DEALERINFO_FAILURE';
 export const DEALERMATERIALINFO_REQUEST='DEALERMATERIALINFO_REQUEST';
 export const DEALERMATERIALINFO_SUCCESS='DEALERMATERIALINFO_SUCCESS';
 export const DEALERMATERIALINFO_FAILURE='DEALERMATERIALINFO_FAILURE';
+
+//유통사 품목 정보 클릭 
+export const MATERIALINFO_CLICK_REQUEST='MATERIALINFO_CLICK_REQUEST';
 
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
@@ -101,6 +108,14 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
 
 //--------------------------------------------------------------------
 
+//유통사 품목 정보 클릭
+//--------------------------------------------------------------------
+        case MATERIALINFO_CLICK_REQUEST : {
+            draft.materialInfoClick=true;
+
+            break;
+        }
+//--------------------------------------------------------------------
 
 
 

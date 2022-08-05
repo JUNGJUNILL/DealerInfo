@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback,useRef } from 'react';
 import { Modal, Button,Row,Input,Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image'
+import noimages from '/public/noimages.gif'
 import 
     {DEALERMATERIALINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
@@ -49,7 +50,7 @@ const DealerMaterialInfo =()=>{
     const refImage = useRef(); 
 
     
-/*
+
     //첫 로딩 시.. 
     useEffect(()=>{
         //구글 에드센스 광고
@@ -72,7 +73,7 @@ const DealerMaterialInfo =()=>{
                
 
     },[]); 
-*/
+
     //자식 컴포넌트에서 부모 변수 컨트롤하기
     const changeVisibleValue =()=>{
         //func(true); 
@@ -162,7 +163,7 @@ const DealerMaterialInfo =()=>{
         ? `https://www.hubpass.co.kr/external/images/a${dealerCode}/${fileName}` 
         : bigsellerImage.length > 0 
         ? bigsellerImage 
-        : 'https://image.hubpass.co.kr:441/delivery.gif'
+        : noimages
 
         setMaterialImageSrc(imgSrc); 
         
@@ -224,9 +225,9 @@ const DealerMaterialInfo =()=>{
                                                                                                                        ? `https://www.hubpass.co.kr/external/images/a${dealerCode}/${v.fileName}` 
                                                                                                                        : v.bigsellerImage.length > 0 
                                                                                                                        ? v.bigsellerImage 
-                                                                                                                       : 'https://image.hubpass.co.kr:441/delivery.gif'}
+                                                                                                                       : noimages}
                                                                                                                        
-                                                                                                                       alt="materials"
+                                                                                                                       alt={noimages}
                                                                                                                        width={80} height={60}
                                                                                                                        layout='responsive'
                                                                                                                        

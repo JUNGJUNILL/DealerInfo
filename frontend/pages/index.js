@@ -1,32 +1,22 @@
-import React , {useState,useEffect,useCallback}from 'react'
+import React , {useEffect}from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Select ,Button,Modal} from 'antd';
-const { Option } = Select;
+import { Select} from 'antd';
+import {useRouter} from 'next/router'; 
 
-import wrapper from '../store/configureStore';
-import {localDataList}from '../API/localData'; 
-import TestComp from '../components/TestComp';
 import DealerInfoListComponent from '../components/DealerInfoListComponent'
 import DealerDetailInfoComponent from '../components/DealerDetailInfoComponent'
-
-
-import axios from 'axios';
-import {useRouter} from 'next/router'; 
-import Image from 'next/image'
 
 import 
     {DEALERINFO_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
 
-import {END} from 'redux-saga'; 
 
 
 const DealerInfo = () =>{
 
   const dispatch              = useDispatch(); 
   const router = useRouter(); 
-  const {dealerInfoList} = useSelector((state)=>state.dealerInfoListReducer); 
-  const [init,setInit] = useState(true);
+  const {dealerInfoList,materialInfoClick} = useSelector((state)=>state.dealerInfoListReducer); 
 
   useEffect(()=>{
     
@@ -37,6 +27,7 @@ const DealerInfo = () =>{
 
   useEffect(()=>{
     
+    if(!materialInfoClick){
       dispatch({
         type:DEALERINFO_REQUEST,
             data:{
@@ -45,10 +36,10 @@ const DealerInfo = () =>{
             end:20
           },
       });
-      
-    
+    }
  
-  },[])
+
+  },[materialInfoClick])
 
 /*
   useEffect(()=>{
@@ -63,11 +54,6 @@ const DealerInfo = () =>{
 
 */
   
-const parentFunc = () =>{
- 
-  alert(`parent func =${init}`);
-}
-
 
 
   //자식 컴포넌트의 변수를 부모 컴포넌트로 가져오는 예시
@@ -76,11 +62,9 @@ const parentFunc = () =>{
     return (
         <div>
   
-        <input type="text" value={init} />
-        {router.query.modal==='true'
-        ?<DealerDetailInfoComponent dealerInfoList={dealerInfoList} dealerCode={router.query.dealerCode} parentFunc={parentFunc} />
-        :<DealerInfoListComponent />
-       }
+          {router.query.page==='true'
+          ?<DealerDetailInfoComponent dealerInfoList={dealerInfoList} dealerCode={router.query.code} info={router.query.info} />
+          :<DealerInfoListComponent />}
      
         </div>
     )

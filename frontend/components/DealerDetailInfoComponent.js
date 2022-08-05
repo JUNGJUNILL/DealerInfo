@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from 'antd';
+import { useDispatch ,useSelector} from 'react-redux';
 import Link from 'next/link';
 
 import {useRouter} from 'next/router'; 
+import 
+    {MATERIALINFO_CLICK_REQUEST,} 
+from '../reducers/dealerInfoListReducer'; 
 
 
-const DealerDetailInfoComponent=({dealerInfoList,dealerCode,parentFunc})=>{
+
+
+const DealerDetailInfoComponent=({dealerInfoList,dealerCode,info})=>{
     
     const router = useRouter();
+    const dispatch = useDispatch();
+
     const dealerDetailInfo = dealerInfoList.filter((v,i,array)=>{
-        if(v.dealerCode===dealerCode){
+        if(v.dealerCode===dealerCode && v.infocode===info){
             return array;
         }
     });
@@ -38,15 +46,21 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,parentFunc})=>{
     const [x,setX] =useState(''); 
     const [y,setY] =useState(''); 
 
-    const onClickMaterialInfo =()=>{
-        router.push('/test');
-       /* let queryString = "?dealerCode="+dealerCode
+    
+    const onClickMaterialInfo =useCallback(()=>{
+        
+        dispatch({
+                type:MATERIALINFO_CLICK_REQUEST
+        })
+
+        
+        let queryString = "?dealerCode="+dealerCode
                     +"&infocode="+infocode
                     +"&infoName="+infoName
 
         router.push('/DealerMaterialInfo'+queryString ,'/DealerMaterialInfo');
-        */
-    }
+        
+    },[])
 
 
     
@@ -67,21 +81,21 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,parentFunc})=>{
 
                  map.setZoomable(false); //지도 확대 축소 차단 
                  map.setDraggable(false); //지도 그레그 이동 차단
-
-                 setX(result[0].x);
-                 setY(result[0].y); 
+                 let X = result[0] ? result[0].x : 0
+                 let Y = result[0] ? result[0].y : 0
+                 setX(X);
+                 setY(Y); 
                  
 
                 //지도 클릭 시..
                 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-                    alert('지도 클릭');        
-                    window.open(`https://map.kakao.com/link/map/${infoName},${result[0].y},${result[0].x}`);     
+                    window.open(`https://map.kakao.com/link/map/${infoName},${Y},${X}`);     
                 });
 
             // 정상적으로 검색이 완료됐으면 
              if (status === kakao.maps.services.Status.OK) {
         
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                var coords = new kakao.maps.LatLng(Y, X);
         
                 // 결과값으로 받은 위치를 마커로 표시합니다
                 var marker = new kakao.maps.Marker({
@@ -108,20 +122,9 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,parentFunc})=>{
         }, [])
 
 
-        const aaa=()=>{
-            alert('aaa');
-        }
-
 
     return(
-        <div>
-            {router.query.modal==='true'
-                &&
-               useEffect(()=>{
-                alert('hello');
-               },[])
-            }
-
+        <div>   
             {/*유통사명*/}
             <p style={{textAlign:'center',marginBottom:'-2%',marginTop:'2%'}}><font style={{fontFamily:'Hanna',fontSize:'4vh'}}>{infoName}</font></p>
 
@@ -146,15 +149,15 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,parentFunc})=>{
 
             {/*매출액*/}
             <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>매출액</font></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{money.replace(pattern,'$&,')} 원</font></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{moneyTohangul} 원</font></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'2.5vh'}}>{money.replace(pattern,'$&,')} 원</font></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'2.5vh'}}>{moneyTohangul.substr(3)}</font></p>
             
             {/*<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>비공개</font></p>*/}
             <hr style={{opacity:'0.4'}}/>
 
             {/*대표자*/}
             <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>대표자</font></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{ceoName}</font></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{ceoName}</font></p>
             <hr style={{opacity:'0.4'}}/>
 
             {/*연락처*/}
@@ -164,7 +167,7 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,parentFunc})=>{
 
             {/*주소*/}
             <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>주소</font></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2vh'}}>{address}</font></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{address}</font></p>
 
 
 

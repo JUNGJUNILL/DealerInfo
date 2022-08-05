@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image'
 import {useRouter} from 'next/router'; 
 import {Modal} from 'antd';
+import noimages from '/public/noimages.gif'
 
 const MaterialImage =({visible,func,materialName,src})=>{
 
@@ -29,7 +30,7 @@ const MaterialImage =({visible,func,materialName,src})=>{
 
       
         >
-         <Image src={src} alt="materialNames" width={500} height={400} layout='responsive'/>
+         <Image src={src} alt={noimages} width={500} height={400} layout='responsive'/>
         </Modal>
         
         </div>
