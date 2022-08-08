@@ -29,6 +29,9 @@ export const  initialState = {
     //유통사 품목 정보 클릭 
     materialInfoClick:false,
 
+    //더 보기 버튼 클릭
+    moreButtonClick:1,
+
 
 }
 
@@ -45,6 +48,9 @@ export const DEALERMATERIALINFO_FAILURE='DEALERMATERIALINFO_FAILURE';
 
 //유통사 품목 정보 클릭 
 export const MATERIALINFO_CLICK_REQUEST='MATERIALINFO_CLICK_REQUEST';
+
+//더보기 버튼 클릭 
+export const MORE_BUTTON_CLICK_REQUEST='MORE_BUTTON_CLICK_REQUEST';
 
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
@@ -116,6 +122,18 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             break;
         }
 //--------------------------------------------------------------------
+
+
+//더 보기 버튼 클릭
+//--------------------------------------------------------------------
+        case MORE_BUTTON_CLICK_REQUEST : {
+           draft.moreButtonClick=action.data.count+1;
+
+        break;
+        }
+//--------------------------------------------------------------------
+
+
 
 
 

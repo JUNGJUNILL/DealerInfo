@@ -10,6 +10,7 @@ from '../reducers/dealerInfoListReducer';
 import 
     MaterialImage
 from '../components/MaterialImage'
+import GoogleAds_Material_Page from '../components/Ads/GoogleAds_Material_Page';
 
 
 import {useRouter} from 'next/router'; 
@@ -54,7 +55,7 @@ const DealerMaterialInfo =()=>{
     //첫 로딩 시.. 
     useEffect(()=>{
         //구글 에드센스 광고
-        if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
+        //if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
          
                 dispatch({
                 type:DEALERMATERIALINFO_REQUEST, 
@@ -203,11 +204,15 @@ const DealerMaterialInfo =()=>{
         afterClose={()=>router.back()} visible={getVisible} onOk={abc} onCancel={abc}
       
         >
+        
+ 
         <div style={{width:'100%',textAlign:"center"}}>
             <font style={{fontFamily:'Hanna',fontSize:'3vh'}}>품목 리스트</font> <br/>
             <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(인기 많은 품목순으로 정렬)</font>   
             <br/>
             <br/>
+            <GoogleAds_Material_Page />
+            <br />
             <Space direction="horizontal">
             <Input placeholder="품명" onKeyPress={onKeyPressMaterialSearch} onChange={onChangeMaterialName} ref={refMaterialName}/>
             <Input placeholder="규격" onKeyPress={onKeyPressMaterialSearch} onChange={onChangeDimension} />
@@ -249,7 +254,7 @@ const DealerMaterialInfo =()=>{
         {materialPerDataLength >= endValue && 
         <Button type="primary" onClick={onClickMore} loading={materialMoreBtnLoading} block>더 보기 ▼</Button> }
        
-        <br/>
+   
 
         <div className='divTableAds' >
         <div className='divTableAdsRow' >

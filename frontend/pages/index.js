@@ -20,13 +20,6 @@ const DealerInfo = () =>{
 
   useEffect(()=>{
     
-    //구글 광고
-    if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
-
-  },[])
-
-  useEffect(()=>{
-    
     if(!materialInfoClick){
       dispatch({
         type:DEALERINFO_REQUEST,

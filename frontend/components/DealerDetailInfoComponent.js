@@ -7,7 +7,7 @@ import {useRouter} from 'next/router';
 import 
     {MATERIALINFO_CLICK_REQUEST,} 
 from '../reducers/dealerInfoListReducer'; 
-
+import GoogleAds_Detail_Page from './Ads/GoogleAds_Detail_Page';
 
 
 
@@ -125,6 +125,8 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,info})=>{
 
     return(
         <div>   
+            
+            <br/>
             {/*유통사명*/}
             <p style={{textAlign:'center',marginBottom:'-2%',marginTop:'2%'}}><font style={{fontFamily:'Hanna',fontSize:'4vh'}}>{infoName}</font></p>
 
@@ -165,6 +167,9 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,info})=>{
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}><a href={`tel:${infoPhone}`}>{infoPhone}</a>{handphone?  <a href={`tel:${handphone}`}> / {handphone}</a>: ''}</font></p>
             <hr style={{opacity:'0.4'}}/>
 
+            {/*구글 광고*/}
+            <GoogleAds_Detail_Page />
+
             {/*주소*/}
             <p>&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'jua',fontSize:'3vh'}}>주소</font></p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style={{fontFamily:'Hanna',fontSize:'2.5vh'}}>{address}</font></p>
@@ -180,15 +185,6 @@ const DealerDetailInfoComponent=({dealerInfoList,dealerCode,info})=>{
                 </a>
             </div>
 
-            <br/>
-            <p>
-            <ins className="adsbygoogle"
-                    style={{display:'block' ,textAlign:'center'}}
-                    data-ad-layout="in-article"
-                    data-ad-format="fluid"
-                    data-ad-client="ca-pub-9160341796142118"
-                    data-ad-slot="1678868744"></ins>
-        </p>
 
         </div>
     )

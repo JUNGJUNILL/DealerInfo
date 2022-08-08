@@ -8,9 +8,13 @@ import {useRouter} from 'next/router';
 import Image from 'next/image'
 import noimages from '/public/noimages.gif'
 
+import GoogleAds_MainPage from './Ads/GoogleAds_MainPage';
+
 
 import 
-    {DEALERINFO_REQUEST,} 
+    {DEALERINFO_REQUEST,
+     MORE_BUTTON_CLICK_REQUEST
+    } 
 from '../reducers/dealerInfoListReducer'; 
 
 
@@ -23,9 +27,9 @@ const DealerInfoListComponent = ()=>{
     const {dealerInfoList, 
           btnLoading, 
           reginValue, 
-          PerDataLength}      = useSelector((state)=>state.dealerInfoListReducer); 
+          PerDataLength,moreButtonClick}      = useSelector((state)=>state.dealerInfoListReducer); 
     const [endValue,  setEndValue] = useState(20);
-    const [clickCount , setClickCount] =useState(1); 
+    const [clickCount , setClickCount] =useState(moreButtonClick); 
     const router = useRouter(); 
 
 
@@ -44,6 +48,12 @@ const DealerInfoListComponent = ()=>{
 
     try{
     setClickCount(1); 
+    dispatch({
+      type:MORE_BUTTON_CLICK_REQUEST,
+      data:{
+        count:0
+      }
+    })
     
     dispatch({
       type:DEALERINFO_REQUEST, 
@@ -70,7 +80,13 @@ const DealerInfoListComponent = ()=>{
     const onClickMore = useCallback(()=>{
 
         setClickCount(prev=>prev+1);
-     
+        dispatch({
+          type:MORE_BUTTON_CLICK_REQUEST,
+          data:{
+            count:clickCount
+          }
+        })
+
         /*
             50~100        처음 더보기          50 ~ 50
           
@@ -110,20 +126,10 @@ const DealerInfoListComponent = ()=>{
                 ))}
                 </Select>} 
             </div>
+   
             
             {/*구글 광고*/}
-            <div className='divTableAds' >
-            <div className='divTableAdsRow' >
-              <div className='divTableAdsCell'>
-                  <ins className="adsbygoogle"
-                  style={{display:'block', textAlign:'center'}}
-                  data-ad-layout={"in-article"}
-                  data-ad-format={"fluid"}
-                  data-ad-client={"ca-pub-9160341796142118"}
-                  data-ad-slot={"5405263289"}></ins>
-              </div>
-            </div>
-          </div>
+            <GoogleAds_MainPage />
 
          {/*데이터 리스트*/}
          <div className='divTable'>
@@ -165,6 +171,7 @@ const DealerInfoListComponent = ()=>{
             ))}
            
             </div>
+
             {PerDataLength >= endValue && <Button type="primary" onClick={onClickMore}  loading={btnLoading} block>더 보기 ▼</Button>  } 
 
                 
