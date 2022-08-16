@@ -120,7 +120,6 @@ const DealerInfoListComponent = ()=>{
 
     return (
         <div>
-            <input type="text" value={clickData} />
             <div style={{width:'100%',textAlign:"center"}}>
                         <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사사</font> <br/>
                         <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(매출액이 높은 순으로 정렬)</font>
