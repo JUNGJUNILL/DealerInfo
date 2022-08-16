@@ -13,7 +13,8 @@ import GoogleAds_MainPage from './Ads/GoogleAds_MainPage';
 
 import 
     {DEALERINFO_REQUEST,
-     MORE_BUTTON_CLICK_REQUEST
+     MORE_BUTTON_CLICK_REQUEST,
+     SCROLL_SPOT_SAVE_REQUEST
     } 
 from '../reducers/dealerInfoListReducer'; 
 
@@ -72,6 +73,12 @@ const DealerInfoListComponent = ()=>{
 
     //유통사 상세정보
     const getDetailDealerIno =(dealerCode,infocode)=>() => {
+      //const scrollSpot = window.scrollY; 
+      //console.log(scrollSpot);
+      dispatch({
+        type:SCROLL_SPOT_SAVE_REQUEST,
+        data:{scrollSpot:window.scrollY}
+      })
       router.push(`?page=true&code=${dealerCode}&info=${infocode}`)
     };
 

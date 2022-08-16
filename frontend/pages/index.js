@@ -16,10 +16,10 @@ const DealerInfo = () =>{
 
   const dispatch              = useDispatch(); 
   const router = useRouter(); 
-  const {dealerInfoList,materialInfoClick} = useSelector((state)=>state.dealerInfoListReducer); 
+  const {dealerInfoList,materialInfoClick,scrollspot} = useSelector((state)=>state.dealerInfoListReducer); 
 
   useEffect(()=>{
-    
+    window.scrollTo(0,scrollspot);
     if(!materialInfoClick){
       dispatch({
         type:DEALERINFO_REQUEST,
@@ -54,7 +54,6 @@ const DealerInfo = () =>{
 
     return (
         <div>
-  
           {router.query.page==='true'
           ?<DealerDetailInfoComponent dealerInfoList={dealerInfoList} dealerCode={router.query.code} info={router.query.info} />
           :<DealerInfoListComponent />}
