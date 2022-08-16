@@ -14,7 +14,7 @@ import GoogleAds_MainPage from './Ads/GoogleAds_MainPage';
 import 
     {DEALERINFO_REQUEST,
      MORE_BUTTON_CLICK_REQUEST,
-     SCROLL_SPOT_SAVE_REQUEST
+     ON_CLICK_DEALER_REQUEST
     } 
 from '../reducers/dealerInfoListReducer'; 
 
@@ -28,9 +28,10 @@ const DealerInfoListComponent = ()=>{
     const {dealerInfoList, 
           btnLoading, 
           reginValue, 
-          PerDataLength,moreButtonClick}      = useSelector((state)=>state.dealerInfoListReducer); 
+          PerDataLength,moreButtonClick,unique}      = useSelector((state)=>state.dealerInfoListReducer); 
     const [endValue,  setEndValue] = useState(20);
     const [clickCount , setClickCount] =useState(moreButtonClick); 
+    const [clickData,setClickData]=useState(0);
     const router = useRouter(); 
 
 
@@ -73,12 +74,14 @@ const DealerInfoListComponent = ()=>{
 
     //유통사 상세정보
     const getDetailDealerIno =(dealerCode,infocode)=>() => {
-      //const scrollSpot = window.scrollY; 
-      //console.log(scrollSpot);
+
       dispatch({
-        type:SCROLL_SPOT_SAVE_REQUEST,
-        data:{scrollSpot:window.scrollY}
-      })
+        type:ON_CLICK_DEALER_REQUEST,
+        data:{scrollSpot:window.scrollY,
+              unique : (dealerCode+infocode)
+        }
+      });
+
       router.push(`?page=true&code=${dealerCode}&info=${infocode}`)
     };
 
@@ -117,7 +120,7 @@ const DealerInfoListComponent = ()=>{
 
     return (
         <div>
-
+            <input type="text" value={clickData} />
             <div style={{width:'100%',textAlign:"center"}}>
                         <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사사</font> <br/>
                         <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(매출액이 높은 순으로 정렬)</font>
@@ -143,7 +146,7 @@ const DealerInfoListComponent = ()=>{
             {dealerInfoList && dealerInfoList.map((v,i)=>(
              //'https://image.hubpass.co.kr:441/delivery.gif ' 
              //onClickDetailInfo(i)     showModal    
-                <div className='divTableRow' key={i} onClick={getDetailDealerIno(dealerInfoList[i].dealerCode,dealerInfoList[i].infocode)}>
+                <div className='divTableRow' key={i} style={{backgroundColor:unique===(dealerInfoList[i].dealerCode+dealerInfoList[i].infocode) ? "#d8d8d8":""}} onClick={getDetailDealerIno(dealerInfoList[i].dealerCode,dealerInfoList[i].infocode)}>
                     <div className='divTableCell'><div className="divImageCell" style={{alignItems:"center"}}><Image src={i<=2
                                                                                                                         ?`https://www.hubpass.co.kr/external/images/a1001/${i===0?'rank_1':i===1?'rank_2':'rank_3'}.jpg`
                                                                                                                         :v.storeCount === '0'

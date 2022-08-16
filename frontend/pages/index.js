@@ -20,6 +20,10 @@ const DealerInfo = () =>{
 
   useEffect(()=>{
     window.scrollTo(0,scrollspot);
+  },[])
+
+  useEffect(()=>{
+    
     if(!materialInfoClick){
       dispatch({
         type:DEALERINFO_REQUEST,

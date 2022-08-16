@@ -32,8 +32,9 @@ export const  initialState = {
     //더 보기 버튼 클릭
     moreButtonClick:1,
 
-    //스크롤 위치 저장
+    //유통사 리스트 클릭 
     scrollspot:0,
+    unique:0,
 
 
 }
@@ -55,8 +56,8 @@ export const MATERIALINFO_CLICK_REQUEST='MATERIALINFO_CLICK_REQUEST';
 //더보기 버튼 클릭 
 export const MORE_BUTTON_CLICK_REQUEST='MORE_BUTTON_CLICK_REQUEST';
 
-//스크롤 위치 저장
-export const SCROLL_SPOT_SAVE_REQUEST='SCROLL_SPOT_SAVE_REQUEST';
+//유통사 리스트 클릭 
+export const ON_CLICK_DEALER_REQUEST='ON_CLICK_DEALER_REQUEST';
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
 
@@ -139,11 +140,12 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
 //--------------------------------------------------------------------
 
 
-//스크롤 위치 저장
+//유통사 리스트 클릭 
 //--------------------------------------------------------------------
-        case SCROLL_SPOT_SAVE_REQUEST : {
+        case ON_CLICK_DEALER_REQUEST : {
             draft.scrollspot=action.data.scrollSpot;
-
+            draft.unique=action.data.unique;
+            
         break;
         }
 //--------------------------------------------------------------------
