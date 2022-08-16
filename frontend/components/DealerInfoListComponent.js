@@ -28,12 +28,16 @@ const DealerInfoListComponent = ()=>{
     const {dealerInfoList, 
           btnLoading, 
           reginValue, 
-          PerDataLength,moreButtonClick,unique}      = useSelector((state)=>state.dealerInfoListReducer); 
+          PerDataLength,moreButtonClick,scrollspot,unique}      = useSelector((state)=>state.dealerInfoListReducer); 
     const [endValue,  setEndValue] = useState(20);
     const [clickCount , setClickCount] =useState(moreButtonClick); 
     const [clickData,setClickData]=useState(0);
     const router = useRouter(); 
 
+    useEffect(()=>{
+      window.scrollTo(0,scrollspot);
+
+    },[]);
 
   //광역시, 도 list
   const mainLocal = localDataList.filter((v,i,array)=>{
@@ -74,10 +78,9 @@ const DealerInfoListComponent = ()=>{
 
     //유통사 상세정보
     const getDetailDealerIno =(dealerCode,infocode)=>() => {
-
       dispatch({
         type:ON_CLICK_DEALER_REQUEST,
-        data:{scrollSpot:window.scrollY,
+        data:{scrollSpot:window.pageYOffset,
               unique : (dealerCode+infocode)
         }
       });
@@ -121,7 +124,7 @@ const DealerInfoListComponent = ()=>{
     return (
         <div>
             <div style={{width:'100%',textAlign:"center"}}>
-                        <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사사</font> <br/>
+                        <font style={{fontFamily:'Hanna',fontSize:'5vh'}}>우리동네 식자재 유통사</font> <br/>
                         <font style={{fontFamily:'jua',fontSize:'2vh',opacity:'0.6'}}>(매출액이 높은 순으로 정렬)</font>
             </div>
 

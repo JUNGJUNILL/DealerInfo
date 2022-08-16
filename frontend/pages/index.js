@@ -18,12 +18,9 @@ const DealerInfo = () =>{
   const router = useRouter(); 
   const {dealerInfoList,materialInfoClick,scrollspot} = useSelector((state)=>state.dealerInfoListReducer); 
 
-  useEffect(()=>{
-    window.scrollTo(0,scrollspot);
-  },[])
 
   useEffect(()=>{
-    
+
     if(!materialInfoClick){
       dispatch({
         type:DEALERINFO_REQUEST,
