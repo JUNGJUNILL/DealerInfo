@@ -1,0 +1,28 @@
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-Agent: DotBot
+Disallow: /
+
+User-Agent: BLEXBot
+Disallow: /
+
+User-agent: bingbot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: serpstatbot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: proximic
+Disallow: /
+
+User-agent: *
