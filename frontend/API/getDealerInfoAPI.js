@@ -15,14 +15,15 @@ export const getDealerInfoAPI = async (actionData) =>{
     let region="";
 
     if(initValue){
-      let userRegiongoUrl='http://hubpass.co.kr/asp/standard/Get_Client_regionInfo.jsp';
-      const userRegionResponse = await fetch(userRegiongoUrl);
-      const regionData = await userRegionResponse.json();
-      const userRegion = regionData.region;
-      region = userRegion;
+
+      // let userRegiongoUrl='https://hubpass.co.kr/asp/standard/Get_Client_regionInfo.jsp';
+      // const userRegionResponse = await fetch(userRegiongoUrl);
+      // const regionData = await userRegionResponse.json();
+      // const userRegion = regionData.region;
+      region = 'Seoul';
 
     }else{
-      region = initlocal;
+      region = 'Seoul';
 
     }
 

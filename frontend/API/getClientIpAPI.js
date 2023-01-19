@@ -3,7 +3,7 @@
 export const getClientIpAPI = async () =>{
     try{
 
-     let goUrl='http://hubpass.co.kr/asp/standard/Get_Client_regionInfo.jsp';
+     let goUrl='https://hubpass.co.kr/asp/standard/Get_Client_regionInfo.jsp';
      const response = await fetch(goUrl);
      const data = await response.json(); 
      const reginValue=data.region;
